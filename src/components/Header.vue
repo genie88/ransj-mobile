@@ -6,6 +6,7 @@
 		</div>
 	</div>
 </template>
+
 <script>
 	import VNavbar from './Navbar'
 	import { routes } from '../routes'
