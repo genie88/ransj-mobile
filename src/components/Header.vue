@@ -1,10 +1,10 @@
 <template>
-	<div>
-		<h1></h1>
-		<div  class="left">
-			<v-navbar :routes="routes"></v-navbar>
-		</div>
-	</div>
+	<!--header开始-->
+	<header class="homePage">
+	    <span class='logo'></span>
+	    <p id="title" class="menu">全部分类<i class="arrow"></i></p>
+	    <span id="search" class="search-box" onclick="window.open('/new_search','_self')"></span>
+	</header>
 </template>
 
 <script>
