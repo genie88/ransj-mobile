@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Vue Vuex Starter Kit</h1>
+		<h1></h1>
 		<div  class="left">
 			<v-navbar :routes="routes"></v-navbar>
 		</div>
