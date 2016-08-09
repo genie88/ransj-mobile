@@ -20,6 +20,15 @@
 		},
 		components:{
 			VNavbar
+		},
+		ready(){
+			$('.menu').on('click', function () {
+		        if ($("#classify .swiper-wrapper .swiper-slide").size() <= 1) {
+		            cateShow();
+		        }
+		        $('#classify-box').slideToggle();
+		        $(this).find("i").toggleClass('arrow2');
+		    });
 		}
 	}
 </script>
