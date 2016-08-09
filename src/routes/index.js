@@ -2,6 +2,8 @@
 const createRoutes = {
 	routes: {
 		'/': require("./Home"),
+        '/cart': require("./Cart"),
+        '/activity': require("./Activity"),
 		'/counter': require("./Counter"),
 		'/user': require("./User")
 	},

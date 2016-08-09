@@ -1,4 +1,5 @@
 <template>
+  <v-header></v-header>
   <v-catagory></v-catagory>
   <v-banner></v-banner>
   <v-ad-slider></v-ad-slider>
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import vHeader from '../../../components/Header'
 import vCatagory from '../../../components/Catagory'
 import vBanner from '../../../components/Banner'
 import vAdSlider from '../../../components/AdSlider'
@@ -29,6 +31,7 @@ export default {
     }
   },
   components:{
+    vHeader,
     vCatagory,
     vBanner,
     vAdSlider,
