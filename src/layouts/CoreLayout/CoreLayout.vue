@@ -1,6 +1,5 @@
 <template>
-	<v-header></v-header>
-	<router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
+	<router-view></router-view>
 	<slot></slot>
 	<v-footer></v-footer>
 </template>
