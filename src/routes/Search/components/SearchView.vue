@@ -3,7 +3,8 @@
     <v-search-header></v-search-header>
     <div class="scroll-box">
       <!-- <v-loading></v-loading> -->
-      <v-search-result></v-search-result>
+      <v-search-history></v-search-history>
+      <!-- <v-search-result></v-search-result> -->
     </div>
   </div>
   
@@ -13,6 +14,7 @@
 <script>
 import vSearchHeader from '../../../components/SearchHeader'
 import vSearchResult from '../../../components/SearchResult'
+import vSearchHistory from '../../../components/SearchHistory'
 import vLoading from '../../../components/Loading'
 
 export default {
@@ -23,6 +25,7 @@ export default {
   components:{
     vSearchHeader,
     vSearchResult,
+    vSearchHistory,
     vLoading
   }
 }

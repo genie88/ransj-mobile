@@ -3,7 +3,7 @@
 	<header class="homePage">
 	    <span class='logo'></span>
 	    <p id="title" class="menu">全部分类<i class="arrow"></i></p>
-	    <span id="search" class="search-box" onclick="window.open('/new_search','_self')"></span>
+	    <span id="search" class="search-box" onclick="window.open('#!/search','_self')"></span>
 	</header>
 </template>
 
