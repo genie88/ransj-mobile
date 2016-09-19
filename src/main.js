@@ -24,6 +24,8 @@ const router = new Router({
 	linkActiveClass: 'link-active'
 })
 
+window.router = router;
+
 // register routes
 router.map(routes)
 router.alias(alias)

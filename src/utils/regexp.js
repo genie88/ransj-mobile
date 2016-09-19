@@ -29,7 +29,8 @@ export default {
 	},
 	/*至少包含2种字符的6到16位密码*/
 	password (str) {
-		return /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{6,16}$/.test(str)
+		return /.{6,16}$/.test(str)
+		// return /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{6,16}$/.test(str)
 	},
 	/*5位数字验证码*/
 	code (num) {
