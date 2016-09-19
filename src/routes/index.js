@@ -3,7 +3,7 @@ const createRoutes = {
 	routes: {
 		'/': require("./Home"),
         '/cart': require("./Cart"),
-        '/product': require("./Product"),
+        '/product/:id': require("./Product"),
         '/activity': require("./Activity"),
         '/search': require("./Search"),
         '/article': require("./Article"),

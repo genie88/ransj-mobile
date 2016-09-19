@@ -32,9 +32,9 @@ export default {
 		return /.{6,16}$/.test(str)
 		// return /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{6,16}$/.test(str)
 	},
-	/*5位数字验证码*/
+	/*4位数字验证码*/
 	code (num) {
-		return /^\d{5}$/.test(num)
+		return /^\d{4}$/.test(num)
 	}
 
 }

@@ -8,8 +8,8 @@
   <section class="pre mb50">
     <div class="pros_tab">
       <ul>
-        <li class="" at="good"><a href="javascript:;">商品详情</a></li>
-        <li at="comm" class="on"><a href="javascript:;">吃货评论<span class="s_num">4</span></a></li>
+        <li class="on"><a href="javascript:;">商品详情</a></li>
+        <li><a href="javascript:;">吃货评论<span class="s_num">4</span></a></li>
       </ul>
     </div>
     <div class="pro_tab_con">
@@ -22,7 +22,7 @@
       <div class="pro_comment mt20" id="tags">
         
       </div>
-      <v-comment></v-comment>
+      <v-comment-list></v-comment-list>
     </div>
   </section>
 
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import vTransparentNav from '../../../components/TransparentNav'
 import vSliderBox from '../../../components/SliderBox'
 import vCommentList from '../../../components/CommentList'
@@ -40,9 +41,28 @@ import vProductCard from '../../../components/ProductCard'
 import vProductDetail from '../../../components/ProductDetail'
 
 export default {
+  name: 'ProductDetail',
   data () {
     return {
+      id: ''
     }
+  },
+  computed: {
+    ...mapGetters(['productDetail', 'productComments'])
+  },
+  methods: {
+    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment'])
+  },
+  route: {
+      data ({to}) {
+        if(isNaN(to.params.id)){
+          router.go('/home');
+          return;
+        } else {
+          this.$data.id = to.params.id;
+          this.getDetail(this.$data.id);
+        }
+      }
   },
   components:{
     vTransparentNav,
