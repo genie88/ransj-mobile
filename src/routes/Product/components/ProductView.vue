@@ -25,12 +25,15 @@
           <v-product-detail :info="productDetail"></v-product-detail>
           <v-farmer-card :info="productDetail" :farmergoods="farmerGoods.data"></v-farmer-card>
 
+          <!-- 猜你喜欢 -->
           <div class="floor-head pt30 mb20">
             <div class="bold box box-center">
               <p></p><span>你可能会喜欢</span><p></p>
             </div>
           </div>
           <v-good-slider></v-good-slider>
+
+
         </div>
       </div>
       <div class="pro_tab_con pb40" v-if="showComment"> 

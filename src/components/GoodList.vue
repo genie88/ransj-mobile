@@ -34,14 +34,14 @@
                 <li v-if="more">
                     <div class="c-goods">
                         <div class="goods-pic">
-                            <a href="">
-                                <img class="lazy" data-original="images/banner/1467862565559.png" src="http://m.yimishiji.com/images/banner/1467862565559.png" style="display: block;">
+                            <a v-link="{path: '{{more.title}}'}">
+                                <img class="lazy" :src="more.image" style="display: block;">
                             </a>
                         </div>
                         <div class="c-goods-detail">
                             <p class="more green">
                                 <a href="" class="green bold mr3">
-                                    更多四时菜蔬
+                                    {{more.title}}<!-- 更多四时菜蔬 -->
                                 </a>
                             </p>
                             <p class="more-icon "><span class="green-bg"></span></p>
