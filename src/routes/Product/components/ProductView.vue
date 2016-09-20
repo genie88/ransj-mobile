@@ -1,24 +1,30 @@
 <template>
   <v-transparent-nav></v-transparent-nav>
   <section class="bottomline section_one">
-    <v-slider-box></v-slider-box>
-    <v-product-card></v-product-card>
+    <v-slider-box :info="productDetail"></v-slider-box>
+    <v-product-card :info="productDetail"></v-product-card>
   </section>
 
   <section class="pre mb50">
     <div class="pros_tab">
       <ul>
-        <li class="on"><a href="javascript:;">商品详情</a></li>
-        <li><a href="javascript:;">吃货评论<span class="s_num">4</span></a></li>
+        <li :class="!showComment? 'on': ''">
+          <a @click.prevent="switchTab()">商品详情</a>
+        </li>
+        <li :class="showComment? 'on': ''">
+          <a @click.prevent="switchTab()">吃货评论
+            <span class="s_num">4</span>
+          </a>
+        </li>
       </ul>
     </div>
-    <div class="pro_tab_con">
+    <div class="pro_tab_con" v-show="!showComment">
       <div class="pro_info_show wd90 m0">
-        <v-product-detail></v-product-detail>
-        <v-farmer-card></v-farmer-card>
+        <v-product-detail :info="productDetail"></v-product-detail>
+        <v-farmer-card :info="productDetail"></v-farmer-card>
       </div>
     </div>
-    <div class="pro_tab_con pb40 dn">
+    <div class="pro_tab_con pb40" v-show="showComment"> 
       <div class="pro_comment mt20" id="tags">
         
       </div>
@@ -44,13 +50,17 @@ export default {
   name: 'ProductDetail',
   data () {
     return {
-      id: ''
+      id: '',
+      showComment: false
     }
   },
   computed: {
     ...mapGetters(['productDetail', 'productComments'])
   },
   methods: {
+    switchTab(){
+      this.$data.showComment = !this.$data.showComment;
+    },
     ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment'])
   },
   route: {

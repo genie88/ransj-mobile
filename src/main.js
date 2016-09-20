@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import promise from 'es6-promise'
+import fetch from 'isomorphic-fetch'
 import App from 'App'
 import { routes, alias }  from './routes'
+import a from './utils/filter'
+
+
+promise.polyfill();
 
 if (module.hot) {
 	module.hot.accept()

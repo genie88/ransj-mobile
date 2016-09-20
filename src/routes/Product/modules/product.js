@@ -1,4 +1,6 @@
 import regexp from 'utils/regexp'
+import fetch from 'isomorphic-fetch'
+// import jsonp from 'fetch-jsonp'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -41,9 +43,22 @@ export const actions = {
     commit(INIT_CHECK_COMMENT);
   },
 
-  getDetail({commit}, param){
-    //发起ajax请求获取商品详情
-    commit(SUCCESS_GET_PRODUCT, {});
+  async getDetail({commit}, productId) {
+    //发起ajax请求获取商品详情 'POST  http://ransj.com/detail/254'
+    try{
+      const res = await fetch(`http://ransj.com/detail/${productId}`, {
+        method: "POST",
+        body: ''
+      })
+      const detail = await res.json();
+      if(detail && detail.id){
+        commit(SUCCESS_GET_PRODUCT, detail);
+      } else {
+        commit(FAILURE_GET_PRODUCT);
+      }
+    } catch(e){
+      commit(FAILURE_GET_PRODUCT);
+    } 
   },
 
   getComments({commit}, param){

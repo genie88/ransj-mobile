@@ -1,6 +1,7 @@
 <template>
     <div class="show_pro_detail show" id="describtion">
-        <div class="floor-head mt30 mb20">
+        {{{info.content[0]}}}
+        <!-- <div class="floor-head mt30 mb20">
             <div class="bold box box-center">
                   <p></p><span>尝过这一味</span><p></p>
             </div>
@@ -25,7 +26,7 @@
             <div class="article_con">一品农庄带着红标鸡参加禽类的展览会，现场有试吃会，「鸡汤煮出来，很多消费者就说，你这个鸡汤里面有放味精。我们在煮的过程中，不放任何调料，不要焯水，就是跟盐结合，够了。」一品农庄的负责人在谈及红标鸡的美味时，给我们讲述了这个展会中的小插曲。</div>        
             <div class="mb10"><img src="http://www.yimishiji.com/public/images/bc/5d/e5/55ed23b7df818ee2348ecf58a4d0724b1d5f8cfa.jpg?1447207045#w?1458906387#w"></div>        
             <div class="article_con">一品农庄的鸡汤竟然让品尝的人产生了错觉，红标鸡的美味由此可见一斑。除了美味之外，红标鸡的营养含量亦是超出一众家鸡。它富含人体需要的氨基酸、蛋白质，含量高达23.4%，含较高的无机盐和微量元素，所含维生素比普通家鸡高一倍以上。</div>
-        </div>
+        </div> -->
     </div>
 
     <!-- 展开查看更多 -->
@@ -35,9 +36,24 @@
     </div>
 </template>
 
+<style>
+    #describtion img{
+        width: 100% !important;
+    }
+    #describtion p{
+        font-size: 14px !important;
+        line-height: 16px !important;
+    }
+    #describtion p span{
+        margin-top: 20px;
+        font-size: 15px;
+    }
+</style>
+
 <script>    
     export default {
         name: 'v-product-detail',
+        props: ['info'],
         data(){
             return {
             }
