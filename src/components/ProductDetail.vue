@@ -42,10 +42,13 @@
     }
     #describtion p{
         font-size: 14px !important;
-        line-height: 16px !important;
+        line-height: 18px !important;
     }
     #describtion p span{
+        width: 100%;
+        text-align: center;
         margin-top: 20px;
+        margin-bottom: 10px;
         font-size: 15px;
     }
 </style>

@@ -5,7 +5,7 @@
             <ul>
                 <li v-for="pic in info.pictures">
                     <a class="pic" href="javascript:void(0);">
-                        <img src="{{pic}}"/>
+                        <img :src="pic"/>
                     </a>
                 </li>
                 <!-- <li >

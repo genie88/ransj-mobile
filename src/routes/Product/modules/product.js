@@ -22,7 +22,7 @@ export const FAILURE_COMMENT = 'FAILURE_COMMENT';
 // ------------------------------------
 const state = {
   detail: {},
-  comments: [],
+  comments: {},
   promotions: [],
   comment: null
 }
@@ -32,7 +32,7 @@ const state = {
 // ------------------------------------
 export const getters = {
     productDetail: state => state.detail,
-    productComments: state => state.productComments
+    productComments: state => state.comments
 }
 
 // ------------------------------------
@@ -61,9 +61,20 @@ export const actions = {
     } 
   },
 
-  getComments({commit}, param){
+  async getComments({commit}, productId){
     //发起ajax请求获取商品评论
-    commit(SUCCESS_GET_PRODUCT_COMMENTS, {});
+    try{
+      const res = await fetch(`http://ransj.com/comment?tid=${productId}`, {
+        method: "POST",
+        body: ''
+      })
+      const comments = await res.json();
+      commit(SUCCESS_GET_PRODUCT_COMMENTS, comments);
+    } catch(e){
+      console.log(e)
+      commit(FAILURE_GET_PRODUCT_COMMENTS);
+    } 
+    
   },
 
   comment({commit}, param){
@@ -90,6 +101,14 @@ export const mutations = {
 
   [FAILURE_GET_PRODUCT](state,data){
     state.detail = null
+  },
+
+  [SUCCESS_GET_PRODUCT_COMMENTS](state, payload){
+    state.comments = payload;
+  },
+
+  [FAILURE_GET_PRODUCT_COMMENTS](state,data){
+    state.comments = null
   }
 }
 
