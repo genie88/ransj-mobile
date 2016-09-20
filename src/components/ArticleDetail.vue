@@ -1,7 +1,11 @@
 <template>
 <div id="disp" class="page-content" style="padding-top:0px;">
-  <div><img src="http://m.yimishiji.com/farmer/img/field_img/banner.jpg"></div>
-  <p style="color:#0d3749;text-align:center;font-weight:bold;font-size:1.6rem;margin-top:1rem;">他们让农田再度鸣唱</p>
+  <div><img :src="article.cover_image" alt="{{article.title}}"/></div>
+  <div class="content" id="article-content">
+    {{{article.content[0]}}}
+  </div>
+
+<!--   <p style="color:#0d3749;text-align:center;font-weight:bold;font-size:1.6rem;margin-top:1rem;">他们让农田再度鸣唱</p>
   <p style="color:#0d3749;text-align:left;font-weight:bold;font-size:1.6rem;margin-top:2rem;padding:0 5%;">寂静的春天</p>
   <p style="color:#5D6166;text-align:left;font-size:1.4rem;margin-top:1rem;padding:0 5%;">50多年前，蕾切尔•卡森（Rachel Carson）写了一本书：《寂静的春天》。在这本书中，她讲述了：为什么在春天到来的时候，我们再也听不到鸟儿的歌声了？</p>
   <p style="color:#5D6166;text-align:left;font-size:1.4rem;margin-top:1rem;padding:0 5%;">因为人类以化学合成农药来消灭害虫，同时也杀害了无辜生灵，污染了绿色大地，造成春到人间，但不闻鸟语虫鸣，只剩下寂静的春天。</p>
@@ -32,7 +36,7 @@
   <div style="padding:0 5%;margin-top:1rem;"><img src="http://m.yimishiji.com/farmer/img/field_img/img11.jpg"></div>
   <p style="color:#5D6166;text-align:center;font-size:1.4rem;margin-top:1rem;padding:0 5%;">争荣农场使用轮作的方式减少病虫害，他们以水稻和茭白进行轮作</p>
   <div style="padding:0 5%;margin-top:1rem;"><img src="http://m.yimishiji.com/farmer/img/field_img/img12.jpg"></div>
-  <p style="color:#5D6166;text-align:center;font-size:1.4rem;margin-top:1rem;padding:0 5%;">一号农场利用昆虫对黄色敏感的特性消灭害虫</p>
+  <p style="color:#5D6166;text-align:center;font-size:1.4rem;margin-top:1rem;padding:0 5%;">一号农场利用昆虫对黄色敏感的特性消灭害虫</p> -->
   
 </div>
   
@@ -41,13 +45,26 @@
 <script>
 export default {
   name: 'v-article-detail',
-  data () {
-    return {
-    }
-  },
+  props: ['article'],
   components:{
   },
   ready(){
   }
 }
 </script>
+
+
+<style>
+    #article-content{
+      padding: 10px;
+    }
+    #article-content img{
+        width: 100% !important;
+    }
+    #article-content p,span{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px !important;
+        line-height: 18px !important;
+    }
+</style>

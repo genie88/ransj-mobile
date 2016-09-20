@@ -6,7 +6,7 @@ const createRoutes = {
         '/product/:id': require("./Product"),
         '/activity': require("./Activity"),
         '/search': require("./Search"),
-        '/article': require("./Article"),
+        '/article/:id': require("./Article"),
 		// '/counter': require("./Counter"),
 		'/user': require("./User")
 	},

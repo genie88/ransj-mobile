@@ -1,13 +1,13 @@
 <template>
   <v-transparent-nav></v-transparent-nav>
-  <v-article-detail :article="articleDetail"></v-article-detail>
-  
+  <v-farmer-detail></v-farmer-detail>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import vTransparentNav from '../../../components/TransparentNav'
-import vArticleDetail from '../../../components/ArticleDetail'
+import vFarmerDetail from '../../../components/FarmerDetail'
+
 
 export default {
   data () {
@@ -41,5 +41,3 @@ export default {
   }
 }
 </script>
-
-<!-- <style src="./styles.css"></style> -->
