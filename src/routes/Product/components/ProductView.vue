@@ -23,7 +23,14 @@
       <div class="pro_tab_con" v-if="!showComment">
         <div class="pro_info_show wd90 m0">
           <v-product-detail :info="productDetail"></v-product-detail>
-          <v-farmer-card :info="productDetail"></v-farmer-card>
+          <v-farmer-card :info="productDetail" :farmergoods="farmerGoods.data"></v-farmer-card>
+
+          <div class="floor-head pt30 mb20">
+            <div class="bold box box-center">
+              <p></p><span>你可能会喜欢</span><p></p>
+            </div>
+          </div>
+          <v-good-slider></v-good-slider>
         </div>
       </div>
       <div class="pro_tab_con pb40" v-if="showComment"> 
@@ -46,6 +53,7 @@ import vFarmerCard from '../../../components/FarmerCard'
 import vAddToCart from '../../../components/AddToCart'
 import vProductCard from '../../../components/ProductCard'
 import vProductDetail from '../../../components/ProductDetail'
+import vGoodSlider from '../../../components/GoodSlider'
 import vLoading from '../../../components/Loading'
 
 export default {
@@ -58,13 +66,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['productDetail', 'productComments'])
+    ...mapGetters(['productDetail', 'productComments', 'farmerGoods'])
   },
   methods: {
     switchTab(){
       this.$data.showComment = !this.$data.showComment;
     },
-    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment'])
+    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods'])
   },
   route: {
       data ({to}) {
@@ -73,7 +81,9 @@ export default {
           return;
         } else {
           this.$data.id = to.params.id;
-          this.getDetail(this.$data.id);
+          this.getDetail(this.$data.id).then((good) => {
+            this.getFarmerGoods(good.farmer_id);
+          })
           this.getComments(this.$data.id);
           this.$data.loadingAsyncData = false;
         }
@@ -86,6 +96,7 @@ export default {
     vFarmerCard,
     vProductCard,
     vProductDetail,
+    vGoodSlider,
     vAddToCart,
     vLoading
   }

@@ -25,5 +25,20 @@ Vue.filter('price', {
 
 //格式化时间
 Vue.filter('formatTime', function(value) {
-  return new Date(value).toISOString().replace(/T/, ' ').split('.')[0];
+  try {
+    value = parseInt(value);
+    return new Date(value).toISOString().replace(/T/, ' ').split('.')[0];
+  } catch(e){
+    return value;
+  }
+})
+
+//七牛云存储截取图片大小
+Vue.filter('imageSize', function(value, size) {
+  try {
+    value = parseInt(value)
+    return value;
+  } catch(e){
+    return value;
+  }
 })

@@ -1,6 +1,15 @@
 <template>
 <div id="disp" class="page-content" style="padding-top:0px;">
   <div><img :src="article.cover_image" alt="{{article.title}}"/></div>
+  <div class="articleInfo">
+    <p class="blog_abstract">{{article.abstract}}</p>
+    <p class="blog_articleTitle">
+      {{article.title}}
+    </p>
+    <p class="blog_articleTime">
+      {{article.update_time | formatTime}}
+    </p>
+  </div>
   <div class="content" id="article-content">
     {{{article.content[0]}}}
   </div>
@@ -55,16 +64,35 @@ export default {
 
 
 <style>
-    #article-content{
-      padding: 10px;
-    }
-    #article-content img{
-        width: 100% !important;
-    }
-    #article-content p,span{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 14px !important;
-        line-height: 18px !important;
-    }
+.blog_articleInfo {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 70px;
+}
+.blog_articleTitle {
+    margin: 20px auto;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.blog_articleTime {
+  font-family: 'Sentinel-BoldItalic';
+  font-size: 16px;
+  color: #5D6166;
+  text-align: center;
+  font-style: italic;
+}
+#article-content{
+  padding: 10px;
+}
+#article-content img{
+    width: 100% !important;
+}
+#article-content p,span{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px !important;
+    line-height: 18px !important;
+}
 </style>

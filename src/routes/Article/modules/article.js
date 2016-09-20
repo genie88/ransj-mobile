@@ -40,7 +40,6 @@ export const actions = {
       })
       const detail = await res.json();
       if(detail && detail.id){
-        console.log(detail)
         commit(SUCCESS_GET_ARTICLE, detail);
       } else {
         commit(FAILURE_GET_ARTICLE);

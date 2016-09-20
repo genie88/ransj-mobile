@@ -5,7 +5,7 @@
             <div class="swiper-slide swiper-slide-active" >
                 <div class="c-goods new-goods">
                         <div class="goods-pic">
-                            <a href="/show_product?product_id=2474&amp;goods_id=1917">
+                            <a v-link="{path: '/product/253'}">
                                 <img src="http://www.yimishiji.com/public/images/42/3e/ed/9e1d0b3c4219810f46c5ab611e842fae8a6549d6.png">
                                 <i class="new-label"></i>
                             </a>

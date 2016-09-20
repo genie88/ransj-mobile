@@ -1,18 +1,14 @@
 <template>
     <div class="show_pro_detail show" id="describtion">
-        {{{info.content[0]}}}
-        <!-- <div class="floor-head mt30 mb20">
+        <div class="floor-head mt30 mb20">
             <div class="bold box box-center">
                   <p></p><span>尝过这一味</span><p></p>
             </div>
         </div> 
         <div class="detail_info">
-            <div class="mb10"><img src="http://www.yimishiji.com/public/images/32/63/a1/68d2ec1302c126eb8fbed92c067bd8d037c32735.jpg?1449219510#w?1458906254#w">
-            </div>
-            <div class="article_con">鸡翅在某种意义上说是鸡的「前腿」，但由于演化成了翅膀，与腿肉的差别，就比猪牛羊等动物的前后腿肉质差别更大。半翅，由于只有翅中与翅尖，所以吃起来，口感更为柔嫩。</div>        
-            <div class="article_con">红标鸡鸡翅的平均含脂肪量比鸡腿多，同时也含有更多的胶原蛋白成分，所以口感更为细嫩，也是中国人日常饮食中常见的肉鸡食用部位。红标鸡的鸡翅适合用来卤制，也适合煮汤、炸食，味道皆甘美。用鸡翅作为主材制作的菜式，最出名的便是红酒贵妃鸡翅、可乐鸡翅、麻辣鸡翅等。</div>        
-            <div class="article_con">近来，有朋友问到「红标鸡」为什么称为「红标」，现简述如下：台湾将岛上主流鸡种「红羽土鸡」送往法国SASSO公司进行纯化育种，历经14年，终告成功，为了与传统的红羽土鸡区分，注册商标为「红标土鸡」。而「红标」在法国是最早推动与最重要的农业标签，这种认证为消费者保证了产品的品质、新鲜、口味、安全、卫生，以及动物与环境的福祉。</div>
+            {{{info.content[0]}}}
         </div>
+        <!-- 
         <div class="floor-head mt30 mb20">    
             <div class="bold box box-center">      
                 <p></p><span>食物的背后</span><p></p>   
