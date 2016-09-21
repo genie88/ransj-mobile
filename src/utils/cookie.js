@@ -2,11 +2,12 @@
 
 export default {
 
-	set (cname, cvalue, exHours) {
+	set (cname, cvalue, exHours=0, domain='') {
 		var d = new Date();
 	    d.setTime(d.getTime() + (exHours*60*60*1000));
-	    var expires = "expires="+d.toUTCString();
-	    document.cookie = cname + "=" + cvalue + "; " + expires;
+	    var expires = exHours > 0 ? "; expires="+d.toUTCString() : '';
+	    domain = domain ? "; domain=" + domain : '';
+	    document.cookie = cname + "=" + cvalue + expires + domain;
 	},
 
 	get (cname) {

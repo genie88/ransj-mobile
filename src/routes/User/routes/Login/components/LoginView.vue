@@ -10,7 +10,7 @@
 </header>
 <!-- 登录 -->
 <div class="user_content" style="height: 100%; display: block;">
-    <div class="account_login"><img src="http://ransj.com/static/b2c/css/widgets/headers/logo_modified.png"></div>
+    <!-- <div class="account_login"><img src="http://ransj.com/static/b2c/css/widgets/headers/logo_modified.png"></div> -->
     <form action="" method="post" id="login_form">
         <div class="cus_form_list">
             <ul>

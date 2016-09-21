@@ -1,4 +1,6 @@
 import regexp from 'utils/regexp'
+import cookie from 'utils/cookie'
+import fetch from 'isomorphic-fetch'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -13,6 +15,7 @@ export const INIT_CHECK_LOGIN = 'INIT_CHECK_LOGIN';
 // States
 // ------------------------------------
 const state = {
+  session: {},
   errors: {
     errortip: '错误提示',
     errorbool: 'hidden'
@@ -34,25 +37,30 @@ export const actions = {
     commit(INIT_CHECK_LOGIN);
   },
 
-  userLogin({commit}, param){
+  async userLogin({commit}, param){
     if(!regexp.mobile(param.username)){
       commit(CHECK_FAILURE_LOGIN, 'invaildMobile')
     }else if(!regexp.password(param.password)){
       commit(CHECK_FAILURE_LOGIN, 'invaildPassword')
     }else{
-      commit(SUCCESS_LOGIN, {});
-      router.go({path: '/user/my'})
-      // $.ajax({
-      //       url: 'http://ransj.com/user/login',
-      //       type: 'POST',
-      //       data: {
-      //           username: this.$data.username,
-      //           password: this.$data.password
-      //       },
-      //       success: function(json){
-      //           console.log(json);
-      //       }
-      //   })
+      const res = await fetch(`http://ransj.com/user/login`, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json',
+          'credentials': 'include'
+        },
+        body: JSON.stringify(param)
+      })
+      const json = await res.json();
+      // console.log(json);
+      if(json && json.errno == 0) {
+        commit(SUCCESS_LOGIN, json.data);
+        router.go({path: '/user/my'})
+      } else {
+        commit(FAILURE_LOGIN, json);
+      }
     }
   }
 }
@@ -78,10 +86,14 @@ export const mutations = {
 
   [FAILURE_LOGIN](state){
     state.session = ''
+    state.info = null
   },
 
   [SUCCESS_LOGIN](state,data){
-    state.session = data.SessionId
+    state.session = data.session
+
+    cookie.set('thinkjs', state.session['thinkjs'].value, 0, 'ransj.com');
+    state.info = data
   }
 }
 
