@@ -4,14 +4,14 @@ import cookie from 'utils/cookie'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const SUCCESS_USERINFO = 'SUCCESS_USERINFO';
-export const FAILURE_USERINFO = 'SUCCESS_USERINFO';
+export const SUCCESS_MY_ORDER_INFO = 'SUCCESS_MY_ORDER_INFO';
+export const FAILURE_MY_ORDER_INFO = 'FAILURE_MY_ORDER_INFO';
 
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
-  userInfo: {}
+  myOrderInfo: {}
 }
 
 
@@ -19,7 +19,7 @@ const state = {
 // Getters
 // ------------------------------------
 export const getters = {
-    userInfo: state => state.userInfo
+    myOrderInfo: state => state.myOrderInfo
 }
 
 
@@ -28,9 +28,9 @@ export const getters = {
 // Action Handlers
 // ------------------------------------
 export const actions = {
-  async getUserInfo({commit}){
+  async getMyOrderInfo({commit}){
     try{
-      const res = await fetch(`http://ransj.com/user`, {
+      const res = await fetch(`http://ransj.com/user/order`, {
         method: "POST",
         mode: 'cors',
         credentials: 'include',  // ['cors', include', 'same-origin']
@@ -44,16 +44,16 @@ export const actions = {
       const json = await res.json();
       console.log(json);
       if(json && json.errno == 0) {
-        commit(SUCCESS_USERINFO, json);
+        commit(SUCCESS_MY_ORDER_INFO, json);
       } else {
         if(json && json.errno == -2) {
             router.go('/user/login');
         }
-        commit(FAILURE_USERINFO, json);
+        commit(FAILURE_MY_ORDER_INFO, json);
       }
     } catch (e) {
         // router.go('/user/login');
-        commit(FAILURE_USERINFO);
+        commit(FAILURE_MY_ORDER_INFO);
     }
   }
 }
@@ -62,12 +62,12 @@ export const actions = {
 // Mutations
 // ------------------------------------
 export const mutations = {
-  [FAILURE_USERINFO](state){
-    state.userInfo = null
+  [FAILURE_MY_ORDER_INFO](state){
+    state.myOrderInfo = null
   },
 
-  [SUCCESS_USERINFO](state,data){
-    state.userInfo = data.userInfo
+  [SUCCESS_MY_ORDER_INFO](state,data){
+    state.myOrderInfo = data
   }
 }
 

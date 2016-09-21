@@ -45,11 +45,11 @@ export const actions = {
     }else{
       const res = await fetch(`http://ransj.com/user/login`, {
         method: "POST",
+        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'x-requested-with': 'XMLHttpRequest',
-          'Content-Type': 'application/json',
-          'credentials': 'include'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(param)
       })
@@ -92,7 +92,7 @@ export const mutations = {
   [SUCCESS_LOGIN](state,data){
     state.session = data.session
 
-    cookie.set('thinkjs', state.session['thinkjs'].value, 0, 'ransj.com');
+    // cookie.set('thinkjs', state.session['thinkjs'].value, 0, 'ransj.com');
     state.info = data
   }
 }

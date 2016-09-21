@@ -1,6 +1,14 @@
 // We only need to import the modules necessary for initial render
 const createRoutes = {
-    '/my': require('./My'),
+    '/my': require('./My'),         // 用户中心
+    '/order': require("./Order"),   // 我的订单
+    '/order/status/:status': require("./Order"),
+    // '/like': require("./Like"),     // 我喜欢的 
+    // '/comment': require("./Comment"), // 评论
+    '/card': require("./Card"),     // 充值卡 
+    '/coupon': require("./Coupon"), // 优惠券
+    '/score': require("./Score"), // 积分
+    '/setting': require("./Setting"), // 设置 (基本信息\安全中心\收货地址)
 	'/login': require("./Login"),
     '/register': require("./Register")
 }
