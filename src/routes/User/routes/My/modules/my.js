@@ -52,7 +52,7 @@ export const actions = {
         commit(FAILURE_USERINFO, json);
       }
     } catch (e) {
-        // router.go('/user/login');
+        router.go('/user/login');
         commit(FAILURE_USERINFO);
     }
   }

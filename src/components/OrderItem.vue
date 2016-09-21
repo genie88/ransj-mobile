@@ -6,11 +6,9 @@
                     订单号
                 </span>
                 <span>
-                    <textarea class="f12 fb order_number" onclick="orderDetail(160909095888607)">
-                        160909095888607
-                    </textarea>
+                    {{info.order_no}}
                 </span>
-                <span class="fr c_b0c2cc f12 bdm_b0c2cc copy_number" onclick="copyOrderNumber(this)">
+                <span class="fr c_b0c2cc f12 bdm_b0c2cc copy_number" @click.prevent="copyOrderNumber(item.order_no)">
                     复制单号
                 </span>
                 <span class="replicated">
@@ -18,23 +16,35 @@
                 </span>
             </p>
             <hr>
-                <div class="hold_pay clearfix" onclick="orderDetail(160909095888607)">
+                <div class="hold_pay clearfix">
                     <p class="mb5">
                         <span class="mr5 f12 fb">
                             金额
                         </span>
                         <span class="f12 fb">
-                            ¥218.00
+                            ¥{{info.order_amount}}
                         </span>
-                        <span class="fr f12 c_e88671">
-                            已取消
+                        <span class="fr f12 c_e88671" v-if="info.status == 0">
+                            未付款
+                        </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 1">
+                            待收货
+                        </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 2">
+                            待收货
+                        </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 3">
+                            已付款
+                        </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 4">
+                            待收货
                         </span>
                     </p>
                     <div class="order_pro_li">
                         <ul>
                             <li>
-                                <a href="show_product?product_id=2871&goods_id=2314">
-                                    <img src="http://www.yimishiji.com/public/images/db/5e/3f/9abd50ea93468045a387c32cf3e4bbf53015c51b.png"/>
+                                <a v-link="{path: '/product/'+ info.goods[0].goods_id}">
+                                    <img :src="info.goods[0].pic" style="border-radius: 18px;"/>
                                 </a>
                             </li>
                         </ul>
@@ -43,13 +53,13 @@
                 <hr>
                     <div class="order_action">
                         <span class="order_time fl c_999 f12">
-                            2016-09-09 09:58
+                            {{info.create_time | formatTime}}
                         </span>
                         <span class="fr">
-                            <a class="order_btn" href="javascript:;" onclick="buyAgain(160909095888607,'normal')">
+                            <a class="order_btn" @click.prevent="buy(info.id)">
                                 再次购买
                             </a>
-                            <a class="order_btn delet_btn" href="javascript:;" onclick="orderDelete(160909095888607,0)">
+                            <a class="order_btn delet_btn" @click.prevent="delete(info.id)">
                                 删除订单
                             </a>
                         </span>
@@ -64,9 +74,13 @@
 <script>
     export default {
         name: 'v-order-item',
+        props: ['info'],
         data(){
             return {
             }
+        },
+        computed: {
+
         },
         components:{
         }

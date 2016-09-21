@@ -42,8 +42,8 @@ export const actions = {
         body: ''
       })
       const json = await res.json();
-      console.log(json);
-      if(json && json.errno == 0) {
+      // console.log(json);
+      if(json && json.data) {
         commit(SUCCESS_MY_ORDER_INFO, json);
       } else {
         if(json && json.errno == -2) {

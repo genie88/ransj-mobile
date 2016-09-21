@@ -1,6 +1,8 @@
 <template>
     <div class="user_header">
-        <div class="user_setting" onclick=""><img src="../static/img/bill.png"></div>
+        <div class="user_setting" v-link="{path: '/user/setting'}">
+            <img src="../static/img/bill.png">
+        </div>
         <div class="user_photo_level">
             <div class="user_photo_c pre" onclick="">
                 <div class="user_photo">

@@ -1,7 +1,7 @@
 <template>
     <v-secondary-nav></v-secondary-nav>
     <v-tab-header></v-tab-header>
-    <section id="orderList" style="margin-top: 8rem; height: 200%; overflow: hidden;background:#f5f5f5;">
+    <section id="orderList" style="margin-top: 8rem; margin-bottom: 4rem; height: auto; overflow: hidden;background:#f5f5f5;">
         <!-- 全部订单 -->
         <div class="scroller">
             <div class="pullDown">
@@ -13,16 +13,17 @@
                 </div>
             </div>
             <ul id="items">
-                <v-order-item></v-order-item>
-                <v-order-item></v-order-item>
+                <template v-for="item in myOrderInfo.data">
+                    <v-order-item :info="item"></v-order-item>
+                </template>
 
                 <!-- 没有订单 -->
-                <li style="padding-top:65px;">
+                <li style="padding-top:65px;" v-if="myOrderInfo.length == 0">
                     <section>
                         <div class="order_none">
                             <h5>你还没有待付款的订单</h5>
                             <h5>现在就去挑选</h5>
-                            <a href="/" class="btn">逛逛看</a>
+                            <a v-link="{path: '/'}" class="btn">逛逛看</a>
                         </div>
                     </section>
                 </li>
