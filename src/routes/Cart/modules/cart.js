@@ -6,11 +6,16 @@ import fetch from 'isomorphic-fetch'
 // Constants
 // ------------------------------------
 
-export const SUCCESS_MY_CART_INFO = 'SUCCESS_MY_CART_INFO'; //查询购物车信息
+export const SUCCESS_MY_CART_INFO = 'SUCCESS_MY_CART_INFO'; // 查询购物车信息
 export const FAILURE_MY_CART_INFO = 'FAILURE_MY_CART_INFO';
 
-export const ADD_TO_CART = 'ADD_TO_CART'; //添加到购物车
-export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST';
+
+export const SUCCESS_UPDATE_CART_ITEM = 'SUCCESS_UPDATE_CART_ITEM'; // 更新购物车条目信息
+export const FAILURE_UPDATE_CART_ITEM = 'FAILURE_UPDATE_CART_ITEM';
+
+export const ADD_TO_CART = 'ADD_TO_CART'; // 添加到购物车
+
+export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST'; // 结算请求
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
@@ -65,6 +70,38 @@ export const actions = {
       }
     },
 
+
+    //更新购物车条目消息 [数量+1， 数量-1， 移除 0]
+    async updateCartItem({commit}, data){
+      let api = data.qty==0 ? `http://ransj.com/cart/delcart`: `http://ransj.com/cart/stepper`
+      try{
+        const res = await fetch( api, {
+          method: "POST",
+          mode: 'cors',
+          credentials: 'include',  // ['cors', include', 'same-origin']
+          headers: {
+            'Accept': 'application/json',
+            'x-requested-with': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ids: data.id +'', qty: data.qty})
+        })
+        const json = await res.json();
+        // console.log(json);
+        if(json && json.data) {
+          commit(SUCCESS_UPDATE_CART_ITEM, json.data.data);
+        } else {
+          if(json && json.errno == -2) {
+              router.go('/user/login');
+          }
+          commit(FAILURE_UPDATE_CART_ITEM, json);
+        }
+      } catch (e) {
+          // router.go('/user/login');
+          commit(FAILURE_UPDATE_CART_ITEM);
+      }
+    },
+
     //添加到购物车
     addToCart ({ commit }, product) {
       if (product.inventory > 0) {
@@ -91,11 +128,6 @@ export const actions = {
     //从购物车中移除商品
     removeCartItem(){
 
-    },
-
-    //调整购物车数量 data = {qty: 1, id: good_id}
-    updateCartItem({commit}, data){
-      //需要判断商品库存
     }
 }
 
@@ -104,6 +136,24 @@ export const actions = {
 // ------------------------------------
 export const mutations = {
 
+  // 更新购物车条目信息
+  [FAILURE_UPDATE_CART_ITEM](state){
+    // state.cartItems = null
+  },
+
+  [SUCCESS_UPDATE_CART_ITEM](state, data){
+    // 替换更新的item
+    for (let i=0; i<state.cartItems.data.length; i++) {
+      let item = state.cartItems.data[i];
+      if(item.product_id == data.product_id) {
+        state.cartItems.data[i].qty = data.qty;
+        state.cartItems.data[i].price = data.price;
+        break;
+      }
+    }
+  },
+
+  // 获取购物车信息
   [FAILURE_MY_CART_INFO](state){
     state.cartItems = null
   },

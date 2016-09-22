@@ -34,13 +34,13 @@
                                             </p>
                                         </div>
                                         <div class="cart_number">
-                                            <span class="decrease" @click.prevent="updateCartItem({id: info.product_id, qty: -1})">
+                                            <span class="decrease" @click.prevent="decrease(info.product_id)">
                                             </span>
                                             <span class="change_number">
                                                 <input class="num_s" readonly="" type="text" value="{{info.qty}}">
                                                 </input>
                                             </span>
-                                            <span class="increase" @click.prevent="updateCartItem({id: info.product_id, qty: 1})">
+                                            <span class="increase" @click.prevent="increase(info.product_id)">
                                             </span>
                                         </div>
                                     </div>
@@ -286,7 +286,27 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getCartInfo', 'removeCartItem', 'addToLike', 'updateCartItem']),
+        ...mapActions(['getCartInfo', 'updateCartItem']), //'removeCartItem', 'addToLike',
+
+        //调整购物车数量
+        decrease(id){
+            let data = this.cartItems.data.find((item) => item.product_id === id)
+            if(!data) return;
+            this.updateCartItem({
+                id: id,
+                qty: Math.max(0, data.qty - 1)
+            })
+        },
+
+        //调整购物车数量
+        increase(id){
+            let data = this.cartItems.data.find((item) => item.product_id === id)
+            if(!data) return;
+            this.updateCartItem({
+                id: id,
+                qty: data.qty+1
+            })
+        },
 
         //去结算
         gotoCasher() {
