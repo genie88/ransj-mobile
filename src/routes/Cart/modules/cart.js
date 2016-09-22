@@ -56,7 +56,7 @@ export const actions = {
         })
         const json = await res.json();
         // console.log(json);
-        if(json && json.data) {
+        if(json && json.total != undefined) {
           commit(SUCCESS_MY_CART_INFO, json);
         } else {
           if(json && json.errno == -2) {
@@ -74,8 +74,38 @@ export const actions = {
     //更新购物车条目消息 [数量+1， 数量-1， 移除 0]
     async updateCartItem({commit}, data){
       let api = data.qty==0 ? `http://ransj.com/cart/delcart`: `http://ransj.com/cart/stepper`
+      const res = await fetch( api, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ids: data.id +'', qty: data.qty})
+      })
+      const json = await res.json();
+      // console.log(json);
+      if(json && json.data) {
+        
+        if(json.data.name == '删除成功！') {
+          json.data.data = {qty: 0, product_id: data.id}
+        }
+
+        commit(SUCCESS_UPDATE_CART_ITEM, json.data.data);
+      } else {
+        if(json && json.errno == -2) {
+            router.go('/user/login');
+        }
+        commit(FAILURE_UPDATE_CART_ITEM, json);
+      }
+    },
+
+    //添加到购物车
+    async addToCart ({ commit }, product) {
       try{
-        const res = await fetch( api, {
+        const res = await fetch(`http://ransj.com/cart`, {
           method: "POST",
           mode: 'cors',
           credentials: 'include',  // ['cors', include', 'same-origin']
@@ -84,29 +114,14 @@ export const actions = {
             'x-requested-with': 'XMLHttpRequest',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ids: data.id +'', qty: data.qty})
+          body: ''
         })
         const json = await res.json();
         // console.log(json);
         if(json && json.data) {
-          commit(SUCCESS_UPDATE_CART_ITEM, json.data.data);
-        } else {
-          if(json && json.errno == -2) {
-              router.go('/user/login');
-          }
-          commit(FAILURE_UPDATE_CART_ITEM, json);
+          commit(ADD_TO_CART, json, product)
         }
-      } catch (e) {
-          // router.go('/user/login');
-          commit(FAILURE_UPDATE_CART_ITEM);
-      }
-    },
-
-    //添加到购物车
-    addToCart ({ commit }, product) {
-      if (product.inventory > 0) {
-        commit(ADD_TO_CART, product.id)
-      }
+      } catch (e) {}
     },
 
     //结算
@@ -142,10 +157,17 @@ export const mutations = {
   },
 
   [SUCCESS_UPDATE_CART_ITEM](state, data){
+    console.log('===========', data)
     // 替换更新的item
     for (let i=0; i<state.cartItems.data.length; i++) {
       let item = state.cartItems.data[i];
       if(item.product_id == data.product_id) {
+
+        if ( data.qty == 0 ) {
+          //数量为0，需要直接删除
+          state.cartItems.data.splice(i, 1);
+          break;
+        }
         state.cartItems.data[i].qty = data.qty;
         state.cartItems.data[i].price = data.price;
         break;
