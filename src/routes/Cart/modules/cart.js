@@ -103,25 +103,23 @@ export const actions = {
     },
 
     //添加到购物车
-    async addToCart ({ commit }, product) {
-      try{
-        const res = await fetch(`http://ransj.com/cart`, {
-          method: "POST",
-          mode: 'cors',
-          credentials: 'include',  // ['cors', include', 'same-origin']
-          headers: {
-            'Accept': 'application/json',
-            'x-requested-with': 'XMLHttpRequest',
-            'Content-Type': 'application/json'
-          },
-          body: ''
-        })
-        const json = await res.json();
-        // console.log(json);
-        if(json && json.data) {
-          commit(ADD_TO_CART, json, product)
-        }
-      } catch (e) {}
+    async addToCart ({ commit }, data) {
+      const res = await fetch(`http://ransj.com/cart/addcart`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json();
+      // console.log(json);
+      if(json && json.data) {
+        commit(ADD_TO_CART, json)
+      }
     },
 
     //结算
@@ -157,7 +155,6 @@ export const mutations = {
   },
 
   [SUCCESS_UPDATE_CART_ITEM](state, data){
-    console.log('===========', data)
     // 替换更新的item
     for (let i=0; i<state.cartItems.data.length; i++) {
       let item = state.cartItems.data[i];
@@ -184,17 +181,9 @@ export const mutations = {
     state.cartItems = data
   },
 
-  [ADD_TO_CART] (state, productId) {
-    state.lastCheckout = null
-    const record = state.cartItems.find(p => p.id === productId)
-    if (!record) {
-      state.cartItems.push({
-        id: productId,
-        quantity: 1
-      })
-    } else {
-      record.quantity++
-    }
+  [ADD_TO_CART] (state, data) {
+    //返回的是最新的购物车数据
+    state.cartItems = data
   },
 
   [CHECKOUT_REQUEST] (state) {

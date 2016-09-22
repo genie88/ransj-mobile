@@ -43,7 +43,7 @@
       </div>
     </section>
 
-    <v-add-to-cart></v-add-to-cart>
+    <v-add-to-cart @click="addToCart({product_id: id, qty: 1})"></v-add-to-cart>
   </template> 
 </template>
 
@@ -75,7 +75,7 @@ export default {
     switchTab(){
       this.$data.showComment = !this.$data.showComment;
     },
-    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods'])
+    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart'])
   },
   route: {
       data ({to}) {
