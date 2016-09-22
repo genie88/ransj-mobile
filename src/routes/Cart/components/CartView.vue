@@ -106,7 +106,7 @@
                             诚食价
                         </span>
                         <span class="amount_price fb c_81ad94" id="goodscost">
-                            ¥{{cartItems.total | currency}}
+                            ¥{{total | currency}}
                         </span>
                     </p>
                     <!-- <p class="">
@@ -131,7 +131,7 @@
                                 小计<!-- (不含运费) -->
                             </span>
                             <span class="amount_price fb c_81ad94" id="total_goods_price">
-                                ¥{{total | currency}}
+                                ¥{{totalAfterDiscount | currency}}
                             </span>
                         </p>
                         <p>
@@ -164,7 +164,7 @@
                         <p>
                             <span class="f15 c_1e384b">小计&nbsp;</span>
                             <span class="fb f16 c_81ad94" id="final_price">
-                                ¥{{total | currency}}
+                                ¥{{totalAfterDiscount | currency}}
                             </span> 
                         </p>
                     </div>
@@ -238,6 +238,7 @@ export default {
     computed: {
         ...mapGetters(['cartItems']),
 
+        //全选状态
         selectAll: {
             get: function () {
                 if(!this.cartItems && this.cartItems.data) return true;
@@ -256,14 +257,26 @@ export default {
 
         //优惠金额
         discount() {
+            //满300减20
+            let num = Math.floor(this.total / 300)
+            return 20*num;
+        },
+
+        //当前选中金额
+        total() {
             if(!this.cartItems && this.cartItems.total) return 0;
-            return this.cartItems.total > 300 ? 20: 0;
+            let total = 0;
+            this.cartItems.data.forEach((item)=>{
+                if(this.$data.selected.includes(item.id)) {
+                    total += item.price;
+                }
+            })
+            return total;
         },
 
         //优惠后小计
-        total() {
-            if(!this.cartItems && this.cartItems.total) return 0;
-            return this.cartItems.total - this.discount;
+        totalAfterDiscount() {
+            return this.total - this.discount;
         },
 
         //勾选的商品总数
