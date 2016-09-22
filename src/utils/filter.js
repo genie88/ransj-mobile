@@ -23,6 +23,15 @@ Vue.filter('price', {
   }
 })
 
+
+//格式化金额
+Vue.filter('currency', function(val) {
+    let curr = parseFloat(val);
+    if(isNaN(curr)) return val;
+    return curr.toFixed(2)
+})
+
+
 //格式化时间
 Vue.filter('formatTime', function(value) {
   try {

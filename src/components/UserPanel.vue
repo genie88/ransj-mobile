@@ -21,7 +21,7 @@
             <ul>
                 <li>
                     <a v-link="{path: '/user/balance'}">
-                        <p class="c_1b374b fb f16">{{info.balance}}</p>
+                        <p class="c_1b374b fb f16">{{info.balance | currency}}</p>
                         <p class="c_1b374b f13">账户余额</p>
                         <span class="add_icon f12"><img src="../static/img/u_add_icon.png"></span>
                     </a>

@@ -1,5 +1,5 @@
 <template>
-    <v-secondary-nav></v-secondary-nav>
+    <v-secondary-nav :title="'我的订单'"></v-secondary-nav>
     <v-tab-header></v-tab-header>
     <section id="orderList" style="margin-top: 8rem; margin-bottom: 4rem; height: auto; overflow: hidden;background:#f5f5f5;">
         <!-- 全部订单 -->

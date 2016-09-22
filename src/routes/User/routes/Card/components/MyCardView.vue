@@ -1,5 +1,5 @@
 <template>
-    <v-secondary-nav></v-secondary-nav>
+    <v-secondary-nav :title="'我的余额'"></v-secondary-nav>
     <section class="mt40 mb30" style="margin-top:3.7rem!important">
         <!--余额显示-->
         <div class="accout_show">           

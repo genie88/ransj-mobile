@@ -1,9 +1,9 @@
 <template>
     <header>
         <span class="arrow" onclick="javascript:history.go(-1);"></span>
-        <p id="" class="">购物篮</p>    
+        <p id="" class="">{{title}}</p>    
         <div class="list_pix wd10">
-            <a href="javascript:;" class="c_afc1cb f13" onclick="if(this.text=='编辑') { editOpen(); } else {editClose(); }" id="edit">编辑</a>
+            <a class="c_afc1cb f13" id="edit">{{btn}}</a>
         </div>
     </header>
 </template>
@@ -11,6 +11,7 @@
 <script>    
     export default {
         name: 'v-secondary-nav',
+        props: ['title', 'btn'],
         data(){
             return {
             }

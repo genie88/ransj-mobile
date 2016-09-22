@@ -1,5 +1,5 @@
 <template>
-    <v-secondary-nav></v-secondary-nav>
+    <v-secondary-nav :title="'我的积分'"></v-secondary-nav>
     <div class="user_content">
         <div class="top_banner pt20 pb20">
             当前积分

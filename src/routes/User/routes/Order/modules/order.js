@@ -1,6 +1,6 @@
 import regexp from 'utils/regexp'
 import cookie from 'utils/cookie'
-// import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch'
 // ------------------------------------
 // Constants
 // ------------------------------------

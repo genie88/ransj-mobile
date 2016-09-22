@@ -1,5 +1,5 @@
 <template>
-    <v-secondary-nav></v-secondary-nav>
+    <v-secondary-nav :title="'基本信息'"></v-secondary-nav>
     <v-tab-header></v-tab-header>
 
     <!-- 基本信息设置 -->
