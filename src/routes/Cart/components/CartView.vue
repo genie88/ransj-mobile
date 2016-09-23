@@ -241,14 +241,14 @@ export default {
         //全选状态
         selectAll: {
             get: function () {
-                if(!this.cartItems && this.cartItems.data) return true;
+                if(!this.cartItems || !this.cartItems.data) return true;
                 return this.cartItems.data.length == this.$data.selected.length;
             },
             set: function (value) {
                 var selected = [];
                 if (value) {
                     this.cartItems.data.forEach(function (item) {
-                        selected.push(item.id);
+                        selected.push(item.product_id);
                     });
                 }
                 this.$data.selected = selected;
@@ -264,10 +264,10 @@ export default {
 
         //当前选中金额
         total() {
-            if(!this.cartItems && this.cartItems.total) return 0;
+            if(!this.cartItems  || !this.cartItems.total) return 0;
             let total = 0;
             this.cartItems.data.forEach((item)=>{
-                if(this.$data.selected.includes(item.id)) {
+                if(this.$data.selected.includes(item.product_id)) {
                     total += item.price;
                 }
             })
