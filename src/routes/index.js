@@ -9,6 +9,7 @@ const createRoutes = {
         '/article/:id': require("./Article"),
         '/casher': require("./Casher"),
         '/casher/pay/order/:id': require("./Casher/pay"),
+        '/casher/payres': require("./Casher/payres"),
 		// '/counter': require("./Counter"),
 		'/user': require("./User")
 	},

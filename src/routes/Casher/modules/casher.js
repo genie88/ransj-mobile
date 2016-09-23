@@ -16,12 +16,16 @@ export const SUCCESS_PAYMENT = 'SUCCESS_PAYMENT'; //支付
 export const FAILURE_PAYMENT = 'FAILURE_PAYMENT';
 export const REQUEST_PAYMENT = 'REQUEST_PAYMENT'; 
 
+export const SUCCESS_GET_PAY_RESULT = 'SUCCESS_GET_PAY_RESULT'; //获取订单支付结果
+export const FAILURE_GET_PAY_RESULT = 'FAILURE_GET_PAY_RESULT';
+
 
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
   lastOrderId: null, //用户最新创建的订单
+  payResult: {},     //支付结果
   paymentInfo: {}
 }
 
@@ -30,6 +34,7 @@ const state = {
 // ------------------------------------
 export const getters = {
   lastOrderId: state => state.lastOrderId,
+  payResult:   state => state.payResult,
   paymentInfo: state => state.paymentInfo
 }
 
@@ -85,7 +90,6 @@ export const actions = {
 
     //付款
     async payment ({ commit }, data){
-      console.log(data, JSON.stringify(data))
       const res = await fetch(`http://ransj.com/cart/pay`, {
         method: "POST",
         mode: 'cors',
@@ -103,6 +107,28 @@ export const actions = {
         commit(SUCCESS_PAYMENT, json.data)
       } else {
         commit(FAILURE_PAYMENT)
+      }
+    },
+
+    //获取付款结果
+    async getPayResult ({ commit }, data){
+      const res = await fetch(`http://ransj.com/cart/payres`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json' //'application/x-www-form-urlencoded'
+        },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json();
+      // console.log(json);
+      if(json && json.data && json.errno == 0) {
+        commit(SUCCESS_GET_PAY_RESULT, json.data)
+      } else {
+        commit(FAILURE_GET_PAY_RESULT)
       }
     }
 
@@ -132,7 +158,6 @@ export const mutations = {
 
   // 支付
   [SUCCESS_PAYMENT] (state, data) {
-    state.paymentInfo = data;
     // data.extra.success_url = 'http://test.ransj.com/#!/casher/payres'
     pingpp.createPayment(data.data, function(result, err){
         console.log(result);
@@ -150,6 +175,17 @@ export const mutations = {
 
   [FAILURE_PAYMENT] (state) {
 
+  },
+
+  //支付结果
+  [SUCCESS_GET_PAY_RESULT] (state, data) {
+    state.payResult = data;
+  },
+
+  [FAILURE_GET_PAY_RESULT] (state) {
+    state.payResult = {
+        error: true
+    };
   }
 }
 
