@@ -35,7 +35,7 @@ Vue.filter('currency', function(val) {
 //格式化时间
 Vue.filter('formatTime', function(value) {
   try {
-    value = parseInt(value);
+    value = parseInt(value) + 8*3600*1000;
     return new Date(value).toISOString().replace(/T/, ' ').split('.')[0];
   } catch(e){
     return value;

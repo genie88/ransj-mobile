@@ -159,6 +159,14 @@ export const mutations = {
   // 支付
   [SUCCESS_PAYMENT] (state, data) {
     // data.extra.success_url = 'http://test.ransj.com/#!/casher/payres'
+    if(!data.data) {
+        //如果是预付款模式或者货到付款模式，直接跳转到支付成功页面
+        if(data.order_id) {
+            router.go(`/casher/payres?c_o_id=${data.order_id}`);
+        } else {
+            console.log('付款遇到问题')
+        }
+    }
     pingpp.createPayment(data.data, function(result, err){
         console.log(result);
         console.log(err.msg);
