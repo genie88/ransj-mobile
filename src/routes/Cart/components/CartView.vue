@@ -15,8 +15,8 @@
                                         type="checkbox" number/>
                                 </div>
                                 <div class="cart_product_pic">
-                                    <img v-link="{path: '/product/'+ info.product_id}" :src="info.pic"/ 
-                                    style="border-radius:20px;width: 60px;height: 60px;">
+                                    <img v-link="{path: '/product/'+ info.product_id}" :src="info.pic" 
+                                    style="border-radius:20px;width: 60px;height: 60px;"/>
                                 </div>
                                 <div class="cart_product_info">
                                     <div class="product_name">
