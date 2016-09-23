@@ -2,53 +2,45 @@
     <footer id="footer">
         <div class="nav-list">
             <ul id="ul">
-                <li id="index" class="current">
-                    <a href="/#!/">
-                        <span class="footer-index"></span>
-                        <p>首页</p >
+                <li v-for="menu in menus" id="{{menu.cls}}" class="{{menu.current ? 'current': ''}}">
+                    <a href="{{menu.link}}">
+                        <span class="{{menu.cls}}"></span>
+                        <i v-if="menu.badge"  class="cart_sales_nums">
+                            <div id="goodstotalNum">{{menu.badge}}</div>
+                        </i>
+                        <p>{{menu.btn}}</p >
                     </a>
                 </li>
-                <li id="footer-callcenter">
-                    <a href="/#!/kefu"
-                       target="_blank">
-                        <span class="footer-callcenter"></span>
-                        <p>客服</p >
-                    </a>
-                </li>
-                <li id="footer-activity">
-                    <a href="/#!/activity">
-                        <span class="footer-activity"></span>
-                        <p>优惠</p >
-                    </a>
-                </li>
-                <li id="shoppingcartList">
+                <!-- <li id="shoppingcartList">
                     <a href="/#!/cart">
                         <span class="footer-shoppingcart"></span>
-                        <i class="cart_sales_nums" style="font-size:14px;font-style: normal;color:white !important;">
-                            <div id="goodstotalNum">0</div>
+                        <i v-if="cartTotal"  class="cart_sales_nums" 
+                           style="font-size:14px;font-style: normal;color:white !important;">
+                            <div id="goodstotalNum">{{cartTotal}}</div>
                         </i>
                         <p>购物篮</p >
                     </a>
-                </li>
-                <li id="personal">
-                    <a href="/#!/user/my">
-                        <span class="footer-personal"></span>
-                        <p>我的</p >
-                    </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </footer>
 </template>
 
 <script>    
-    export default {
-        name: 'v-footer',
-        data(){
-            return {
-            }
-        },
-        components:{
+export default {
+    name: 'v-footer',
+    props: ['menus'],
+    data(){
+        return {
         }
+    },
+    components:{
     }
+}
 </script>
+
+<style>
+    .cart_sales_nums{
+        font-size:14px;font-style: normal;color:white !important;
+    }
+</style>
