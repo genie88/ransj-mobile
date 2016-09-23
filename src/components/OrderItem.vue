@@ -25,20 +25,27 @@
                             ¥{{info.order_amount}}
                         </span>
                         <span class="fr f12 c_e88671" v-if="info.status == 0">
-                            未付款
+                            订单已生成
                         </span>
                         <span class="fr f12 c_e88671" v-if="info.status == 1">
-                            待收货
+                            创建成功
                         </span>
                         <span class="fr f12 c_e88671" v-if="info.status == 2">
-                            待收货
+                            等待付款
                         </span>
-                        <span class="fr f12 c_e88671" v-if="info.status == 3">
-                            已付款
+                        <span class="fr f12 c_e88671" v-if="info.status == 3 && info.delivery_status == 0">
+                            等待发货
+                        </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 3 && info.delivery_status == 1">
+                            等待收货
                         </span>
                         <span class="fr f12 c_e88671" v-if="info.status == 4">
-                            待收货
+                            去评论
                         </span>
+                        <span class="fr f12 c_e88671" v-if="info.status == 6">
+                            已作废
+                        </span>
+                        <p class="c_b0c2cc fr">{{info.channel}}</p>
                     </p>
                     <div class="order_pro_li">
                         <ul>
@@ -56,10 +63,25 @@
                             {{info.create_time | formatTime}}
                         </span>
                         <span class="fr">
-                            <a class="order_btn" @click.prevent="buy(info.id)">
+                            <a class="order_btn pay_btn" v-if="info.status == 2" v-link="{path: '/casher/pay/order/'+ info.id}">
+                                立即付款
+                            </a>
+                            <a class="order_btn remind_btn" v-if="info.status == 3 && info.delivery_status == 0" @click.prevent="remindSend(info.id)">
+                                提醒发货
+                            </a>
+                            <a class="order_btn confirm_btn" v-if="info.status == 3 && info.delivery_status == 1" @click.prevent="comfirmReceive(info.id)">
+                                确认收货
+                            </a>
+                            <a class="order_btn comment_btn" v-if="info.status == 4" @click.prevent="commentOrder(info.id)">
+                                待评论
+                            </a>
+                            <a class="order_btn comment_btn" v-if="info.status == 5" @click.prevent="buyAagin(info.id)">
                                 再次购买
                             </a>
-                            <a class="order_btn delet_btn" @click.prevent="delete(info.id)">
+                            <a class="order_btn" v-if="info.status == 6">
+                                已作废
+                            </a>
+                            <a class="order_btn delet_btn" @click.prevent="deleteOrder(info.id)">
                                 删除订单
                             </a>
                         </span>
@@ -86,3 +108,17 @@
         }
     }
 </script>
+
+
+<style>
+    .pay_btn{
+       background: #ee9b84; 
+       color: #fff;
+       border: 1px solid #ee9b84;
+    }
+    .remind_btn, .confirm_btn ,.comment_btn{
+        background: #81ad94;
+        color: #fff;
+        border: 1px solid #81ad94;
+    }
+</style>
