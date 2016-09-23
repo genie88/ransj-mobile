@@ -26,6 +26,7 @@ export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 // ------------------------------------
 const state = {
   cartItems: {},
+  casherInfo: {},
   lastCheckout: null
 }
 
@@ -33,7 +34,8 @@ const state = {
 // Getters
 // ------------------------------------
 export const getters = {
-  cartItems: state => state.cartItems
+  cartItems: state => state.cartItems,
+  casherInfo: state => state.casherInfo
 }
 
 // ------------------------------------
@@ -123,14 +125,26 @@ export const actions = {
     },
 
     //结算
-    checkout ({ commit }, products){
-      const savedCartItems = [...state.cartItems]
-      commit(CHECKOUT_REQUEST)
-      // shop.buyProducts(
-      //   products,
-      //   () => dispatch(CHECKOUT_SUCCESS),
-      //   () => dispatch(CHECKOUT_FAILURE, savedCartItems)
-      // )
+    async checkout ({ commit }, data){
+      const res = await fetch(`http://ransj.com/cart/getorderinfo`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data   //ids=254&qty=1&ids=253&qty=3&Submit=&coupon_code=
+      })
+      const json = await res.json();
+      // console.log(json);
+      if(json && json.data && json.errno == 0) {
+        commit(CHECKOUT_SUCCESS, json.data)
+        router.go('/casher');
+      } else {
+        commit(CHECKOUT_FAILURE)
+      }
     },
 
     //将商品添加至喜欢
@@ -187,19 +201,15 @@ export const mutations = {
   },
 
   [CHECKOUT_REQUEST] (state) {
-    // clear cart
-    state.cartItems = []
-    state.lastCheckout = null
   },
 
-  [CHECKOUT_SUCCESS] (state) {
-    state.lastCheckout = 'successful'
+  [CHECKOUT_SUCCESS] (state, data) {
+    state.casherInfo = data;
+    state.lastCheckout = 'successful';
   },
 
   [CHECKOUT_FAILURE] (state, savedCartItems) {
-    // rollback to the cart saved before sending the request
-    state.cartItems = savedCartItems
-    state.lastCheckout = 'failed'
+
   }
 }
 

@@ -7,6 +7,8 @@ const createRoutes = {
         '/activity': require("./Activity"),
         '/search': require("./Search"),
         '/article/:id': require("./Article"),
+        '/casher': require("./Casher"),
+        '/casher/pay/order/:id': require("./Casher/pay"),
 		// '/counter': require("./Counter"),
 		'/user': require("./User")
 	},

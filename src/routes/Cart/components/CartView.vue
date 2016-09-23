@@ -11,7 +11,7 @@
                         <div class="wd94 m0">
                             <div class="cart_pro_con box boxpack-center">
                                 <div class="choose_one">
-                                    <input checked="" :value="info.id" v-model="selected"
+                                    <input checked="" :value="info.product_id" v-model="selected"
                                         type="checkbox" number/>
                                 </div>
                                 <div class="cart_product_pic">
@@ -286,7 +286,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getCartInfo', 'updateCartItem']), //'removeCartItem', 'addToLike',
+        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout']), //'addToLike',
 
         //调整购物车数量
         decrease(id){
@@ -310,7 +310,12 @@ export default {
 
         //去结算
         gotoCasher() {
-
+            let ids = ''
+            for(let i=0; i<this.$data.selected.length;i++){
+                ids += ((i==0)?'':'&') + 'ids=' + this.$data.selected[i]
+            }
+            console.log(ids);
+            this.checkout(ids)
         }
     },
     route: {
