@@ -10,7 +10,8 @@
                             </a>
                             <div class="addto-cart">
                                 <div class="turn">
-                                    <span class="add-btn" @click="addToCart(item.id, 1)"></span>
+                                    <span class="add-btn" 
+                                        @click="addToCart(item.id, 1, item.title)"></span>
                                 </div>
                             </div>
                         </div>
@@ -62,8 +63,8 @@
             }
         },
         methods: {
-            addToCart(id, qty){
-                this.$dispatch('addtocart', {product_id: id, qty: qty})
+            addToCart(id, qty, title){
+                this.$dispatch('addtocart', {product_id: id, qty: qty, title: title})
             }
         },
         components:{ 

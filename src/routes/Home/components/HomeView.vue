@@ -8,13 +8,13 @@
   <v-floor-image-header  :link="''"
     :image="'/images/headers/good.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCart"></v-home-good-list>
+  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list>
 
   <!-- 肉禽蛋类 -->
   <v-floor-image-header  :link="''"
     :image="'/images/headers/meat.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCart"></v-home-good-list>
+  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list>
 
   <!-- 联系方式 -->
   <div class="info-box">
@@ -46,7 +46,11 @@ export default {
   },
   methods: {
     ...mapActions(['getProductCates', 'getHomeSliders', 'getHotArticles', 
-      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast'])
+      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast']),
+    addToCartClick(data){
+      this.addToCart(data);
+      this.showToast({tips: data.title});
+    }
   },
   route: {
       data ({to}) {
