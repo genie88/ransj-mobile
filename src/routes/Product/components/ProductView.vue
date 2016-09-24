@@ -86,9 +86,11 @@ export default {
           this.$data.id = to.params.id;
           this.getDetail(this.$data.id).then((good) => {
             this.getFarmerGoods(good.farmer_id);
+
           })
           this.getComments(this.$data.id);
           this.$data.loadingAsyncData = false;
+          
         }
       }
   },

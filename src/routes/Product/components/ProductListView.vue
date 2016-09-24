@@ -1,11 +1,11 @@
 <template>
   <v-loading v-if="loadingAsyncData"></v-loading>
   <template v-if="!loadingAsyncData">
-    <v-header :title="currentCate.name"></v-header>
-    <v-catagory></v-catagory>
+    <v-header :title="currentCate && currentCate.name"></v-header>
+    <v-catagory :cates="cates.data"></v-catagory>
 
     <!-- 二级分类 -->
-    <div class="sub-classify-box ">
+    <div class="sub-classify-box" v-if="currentCate && currentCate.subcates && currentCate.subcates.length">
       <div class="swiper-container sub-classify togglon swiper-container-horizontal swiper-container-free-mode">
         <ul class="swiper-wrapper">
           <li class="swiper-slide swiper-slide-active" :class=" subCate == id? 'on': ''">
@@ -34,7 +34,7 @@ import vHomeGoodList from '../../../components/HomeGoodList'
 import vLoading from '../../../components/Loading'
 
 export default {
-  name: 'ProductDetail',
+  name: 'ProductListView',
   data () {
     return {
       id: '',
@@ -61,16 +61,20 @@ export default {
         } else {
           this.$data.id = to.params.id;
           this.$data.subCate = to.params.id;
+
           this.getProductCates().then((json)=>{
             let cates = json.data;
             this.$data.currentCate =  cates.find((cat)=> cat.id == this.$data.id);
+            if (this.$data.id == 108) {
+              this.$data.currentCate = {name: '所有分类', id:'108', subcates: []}
+            }
             //如果没有找到相关的分类，回到主页
             if(!this.$data.currentCate) {
-              // router.go('/');
+              router.go('/');
             }
             this.getProductListByCate(this.$data.id);
-            this.$data.loadingAsyncData = false;
           })
+          this.$data.loadingAsyncData = false;
         }
       }
   },

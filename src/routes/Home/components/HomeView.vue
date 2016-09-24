@@ -1,6 +1,6 @@
 <template>
   <v-header :title="'所有分类'"></v-header>
-  <v-catagory></v-catagory>
+  <v-catagory :cates="cates.data"></v-catagory>
   <v-banner></v-banner>
   <v-ad-slider :list="hotArticles.data"></v-ad-slider>
   <v-floor-image-header  :link="''"
