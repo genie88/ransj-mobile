@@ -2,7 +2,7 @@
 	<!--header开始-->
 	<header class="homePage">
 	    <span class='logo'></span>
-	    <p id="title" class="menu">全部分类<i class="arrow"></i></p>
+	    <p id="title" class="menu">{{title}}<i class="arrow"></i></p>
 	    <span id="search" class="search-box" onclick="window.open('#!/search','_self')"></span>
 	</header>
 </template>
@@ -13,6 +13,7 @@
 	
 	export default {
 		name: 'header',
+		props: ['title'],
 		data(){
 			return {
 				routes

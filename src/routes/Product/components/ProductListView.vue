@@ -1,7 +1,7 @@
 <template>
   <v-loading v-if="loadingAsyncData"></v-loading>
   <template v-if="!loadingAsyncData">
-    <v-header></v-header>
+    <v-header :title="currentCate.name"></v-header>
     <v-catagory></v-catagory>
 
     <!-- 二级分类 -->

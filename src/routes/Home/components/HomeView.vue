@@ -1,5 +1,5 @@
 <template>
-  <v-header></v-header>
+  <v-header :title="'所有分类'"></v-header>
   <v-catagory></v-catagory>
   <v-banner></v-banner>
   <v-ad-slider :list="hotArticles.data"></v-ad-slider>
