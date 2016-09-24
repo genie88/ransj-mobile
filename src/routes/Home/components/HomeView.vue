@@ -3,14 +3,20 @@
   <v-catagory :cates="cates.data"></v-catagory>
   <v-banner></v-banner>
   <v-ad-slider :list="hotArticles.data"></v-ad-slider>
+
+  <!-- 好物主打 -->
   <v-floor-image-header  :link="''"
     :image="'/images/headers/good.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data"></v-home-good-list>
+  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCart"></v-home-good-list>
+
+  <!-- 肉禽蛋类 -->
   <v-floor-image-header  :link="''"
     :image="'/images/headers/meat.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data"></v-home-good-list>
+  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCart"></v-home-good-list>
+
+  <!-- 联系方式 -->
   <div class="info-box">
     <p>服务热线：18073181682</p>
     <p>周一至周日 8:00-21:00</p>
