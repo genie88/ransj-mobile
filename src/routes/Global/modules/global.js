@@ -12,6 +12,7 @@ export const CHANGE_MENU = 'CHANGE_MENU';
 // States
 // ------------------------------------
 const state = {
+    tips: false,
     menus: [{
       current: true,
       btn: '首页',
@@ -41,6 +42,7 @@ const state = {
 // ------------------------------------
 export const getters = {
   footerMenus: state => state.menus,
+  globalTips: state => state.tips
 }
 
 // ------------------------------------

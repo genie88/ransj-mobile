@@ -4,8 +4,8 @@
             <div class="floor">
                 <div class="floor-head">
                     <div class="border-t">
-                        <a href="">
-                            <img class="lazy" data-original="http://m.yimishiji.com/images/banner/1470281604908.jpg" src="http://m.yimishiji.com/images/banner/1470281604908.jpg" style="display: block;">
+                        <a href="{{link}}">
+                            <img class="lazy" :src="image" style="display: block;">
                         </a>
                     </div>
                 </div>
@@ -17,6 +17,7 @@
 <script>    
     export default {
         name: 'v-floor-image-header',
+        props: ['image', 'link'],
         data(){
             return {
             }
