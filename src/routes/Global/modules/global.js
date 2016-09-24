@@ -8,6 +8,9 @@ import fetch from 'isomorphic-fetch'
 export const UPDATE_BADGE = 'UPDATE_BADGE';
 export const CHANGE_MENU = 'CHANGE_MENU';
 
+export const SHOW_TOAST = 'SHOW_TOAST';
+export const HIDE_TOAST = 'HIDE_TOAST';
+
 // ------------------------------------
 // States
 // ------------------------------------
@@ -49,7 +52,12 @@ export const getters = {
 // Action Handlers
 // ------------------------------------
 export const actions = {
-
+  showToast ({ commit }, data) {
+    commit(SHOW_TOAST, data);
+    setTimeout(()=>{
+      commit(HIDE_TOAST);
+    }, 1000)
+  }
 }
 
 // ------------------------------------
@@ -66,7 +74,17 @@ export const mutations = {
       item.current = false;
     })
     state.menus[index].current = true;
-  }
+  },
+
+
+  // 全局提示弹窗
+  [SHOW_TOAST] (state, tips){
+    state.tips = tips;
+  },
+
+  [HIDE_TOAST] (state, tips){
+    state.tips = false
+  },
 }
 
 export default {

@@ -40,13 +40,14 @@ export default {
   },
   methods: {
     ...mapActions(['getProductCates', 'getHomeSliders', 'getHotArticles', 
-      'getHotProducts', 'getNewProducts', 'addToCart'])
+      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast'])
   },
   route: {
       data ({to}) {
         this.getProductCates();
         this.getHotArticles();
         this.getHotProducts();
+        this.showToast({tips: '欢迎回来'});
         this.$data.loadingAsyncData = false;
       }
   },

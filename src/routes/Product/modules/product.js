@@ -22,11 +22,14 @@ export const INIT_CHECK_COMMENT = 'INIT_CHECK_COMMENT';
 export const SUCCESS_COMMENT = 'SUCCESS_COMMENT'; //评论
 export const FAILURE_COMMENT = 'FAILURE_COMMENT';
 
+export const SUCCESS_GET_PRODUCTS_BY_CATE = 'SUCCESS_GET_PRODUCTS_BY_CATE'; //根据分类查询商品列表
+export const FAILURE_GET_PRODUCTS_BY_CATE = 'FAILURE_GET_PRODUCTS_BY_CATE';
 
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
+  productsByCate: {},
   detail: {},
   farmerGoods: {},
   comments: {},
@@ -38,6 +41,7 @@ const state = {
 // Getters
 // ------------------------------------
 export const getters = {
+    productsByCate: state => state.productsByCate,
     productDetail: state => state.detail,
     productComments: state => state.comments,
     farmerGoods: state => state.farmerGoods
@@ -105,7 +109,29 @@ export const actions = {
   comment({commit}, param){
     //ajax发起评论
     commit(SUCCESS_COMMENT, {});
-  }
+  },
+
+  //根据分类查询分类列表
+  async getProductListByCate({commit}, catId){
+    //发起ajax请求获取商品评论
+    const res = await fetch(`http://ransj.com/topic/list?category=${catId}`, {
+      method: "POST",
+      mode: 'cors',
+      credentials: 'include',  // ['cors', include', 'same-origin']
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(catId)
+    })
+    const json = await res.json();
+    if(json && json.data) {
+      commit(SUCCESS_GET_PRODUCTS_BY_CATE, json)
+    } else {
+      commit(FAILURE_GET_PRODUCTS_BY_CATE, json)
+    }
+  },
 }
 
 // ------------------------------------
@@ -145,7 +171,16 @@ export const mutations = {
 
   [FAILURE_GET_FARMER_PRODUCTS](state,data){
     state.farmerGoods = null
-  }
+  },
+
+  //查询某二级分类的商品列表
+  [SUCCESS_GET_PRODUCTS_BY_CATE](state, payload){
+    state.productsByCate = payload;
+  },
+
+  [FAILURE_GET_PRODUCTS_BY_CATE](state,data){
+    state.productsByCate = null
+  },
 }
 
 export default {

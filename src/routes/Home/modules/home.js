@@ -53,6 +53,7 @@ export const actions = {
     const json = await res.json();
     if(json && json.data && json.errno == 0) {
       commit(SUCCESS_PRODUCT_CATS, json)
+      return json
     }
   },
 
