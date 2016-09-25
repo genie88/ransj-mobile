@@ -25,10 +25,14 @@ export const FAILURE_COMMENT = 'FAILURE_COMMENT';
 export const SUCCESS_GET_PRODUCTS_BY_CATE = 'SUCCESS_GET_PRODUCTS_BY_CATE'; //根据分类查询商品列表
 export const FAILURE_GET_PRODUCTS_BY_CATE = 'FAILURE_GET_PRODUCTS_BY_CATE';
 
+export const ADD_PRODUCT_VIEW_HISTORY = 'ADD_PRODUCT_VIEW_HISTORY'; // 增加商品详情浏览历史
+export const GET_PRODUCT_VIEW_HISTORY = 'GET_PRODUCT_VIEW_HISTORY'; // 查询商品详情历史
+
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
+  productViewHistory: [],
   productsByCate: {},
   detail: {},
   farmerGoods: {},
@@ -41,6 +45,7 @@ const state = {
 // Getters
 // ------------------------------------
 export const getters = {
+    productViewHistory: state => state.productViewHistory,
     productsByCate: state => state.productsByCate,
     productDetail: state => state.detail,
     productComments: state => state.comments,
@@ -132,6 +137,48 @@ export const actions = {
       commit(FAILURE_GET_PRODUCTS_BY_CATE, json)
     }
   },
+
+  //添加商品浏览详情
+  addProductViewHistory({commit}, product){
+    let price, findIndex, item, history = store.get('productViewHistory');
+
+    try{
+      price = JSON.parse(product.price);
+    } catch(e) {}
+    item = {
+      id: product.id,
+      title: product.title,
+      image: product.pictures[0],
+      farm: product.farmer.title,
+      specs: product.specification,
+      price: price.present_price,
+      price2: price.discount_price,
+      viewTime: new Date().getTime() 
+    }
+
+    if(!history || !history.length) {
+      history = []
+    }
+    //删除相同的ID历史
+    findIndex = history.findIndex((item)=>{
+      return item.id == product.id
+    })
+    if(findIndex != -1) {
+      history.splice(findIndex, 1)
+    }
+
+    //插入新的浏览记录
+    history.unshift(item)
+    
+    store.set('productViewHistory', history);
+    commit(ADD_PRODUCT_VIEW_HISTORY, history);
+  },
+
+  //查询商品浏览详情
+  getProductViewHistory({commit}){
+    let history = store.get('productViewHistory');
+    commit(GET_PRODUCT_VIEW_HISTORY, history);
+  }
 }
 
 // ------------------------------------
@@ -180,6 +227,15 @@ export const mutations = {
 
   [FAILURE_GET_PRODUCTS_BY_CATE](state,data){
     state.productsByCate = null
+  },
+
+  //商品浏览详情 [增加/查询]
+  [ADD_PRODUCT_VIEW_HISTORY](state, data){
+    state.productViewHistory = data
+  },
+
+  [GET_PRODUCT_VIEW_HISTORY](state,data){
+    state.productViewHistory = data
   },
 }
 

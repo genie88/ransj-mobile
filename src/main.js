@@ -21,7 +21,6 @@ Vue.mixin({
 	// 	getters: {  }
 	// }
 })
-
 Vue.use(Router)
 
 const router = new Router({

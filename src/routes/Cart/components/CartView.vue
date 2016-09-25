@@ -218,11 +218,13 @@
             </p>
             <div class="floor-con">
                 <div class="floor">
-                    <v-good-slider></v-good-slider>
+                    <v-good-slider :list="productViewHistory"></v-good-slider>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="height45"></div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
@@ -236,7 +238,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['cartItems']),
+        ...mapGetters(['cartItems', 'productViewHistory']),
 
         //全选状态
         selectAll: {
@@ -286,7 +288,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout']), //'addToLike',
+        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout', 'getProductViewHistory', 'addToLike']),
 
         //调整购物车数量
         decrease(id){
@@ -321,6 +323,7 @@ export default {
     route: {
         data (){
             this.getCartInfo();
+            this.getProductViewHistory();
         }
     },
     components: {

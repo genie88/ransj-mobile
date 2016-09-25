@@ -75,7 +75,7 @@ export default {
     switchTab(){
       this.$data.showComment = !this.$data.showComment;
     },
-    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart'])
+    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart', 'addProductViewHistory'])
   },
   route: {
       data ({to}) {
@@ -86,6 +86,7 @@ export default {
           this.$data.id = to.params.id;
           this.getDetail(this.$data.id).then((good) => {
             this.getFarmerGoods(good.farmer_id);
+            this.addProductViewHistory(good);
 
           })
           this.getComments(this.$data.id);
