@@ -3,7 +3,7 @@
     <a href="javascript:void(0);" onclick="history.go(-1)"><span class="arrow ml5 fl"></span></a>
     <div class="c-input boxflex-one fl">        
         <input id="text" type="text" placeholder="{{keyword}}" 
-            value="" v-model="k" @input="onInputChange">
+            value="" v-model="k" @input="onInputChange" @keyup.enter="onSearch">
        <label class="iconfont search-icon"></label>    
         <span class="iconfont delete_x dn"></span>     
     </div>

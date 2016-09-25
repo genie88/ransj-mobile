@@ -17,6 +17,8 @@ export const FAILURE_SEARCH_SUGGESTIONS = 'FAILURE_SEARCH_SUGGESTIONS';
 
 export const SUCCESS_SEARCH_HISTORY = 'SUCCESS_SEARCH_HISTORY'; //搜索历史
 export const FAILURE_SEARCH_HISTORY = 'FAILURE_SEARCH_HISTORY';
+export const ADD_SEARCH_HISTORY = 'ADD_SEARCH_HISTORY';
+export const CLEAR_SEARCH_HISTORY = 'CLEAR_SEARCH_HISTORY';
 
 // ------------------------------------
 // States
@@ -111,25 +113,55 @@ export const actions = {
 
 
   //搜索历史
-  async getSearchHistory ({ commit }, data) {
-    const res = await fetch(`http://ransj.com/search/history`, {
-      method: "POST",
-      mode: 'cors',
-      credentials: 'include',  // ['cors', include', 'same-origin']
-      headers: {
-        'Accept': 'application/json',
-        'x-requested-with': 'XMLHttpRequest',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const json = await res.json();
-    // console.log(json);
-    if(json && json.data) {
-      commit(SUCCESS_SEARCH_SUGGESTIONS, json)
-    } else {
-      commit(FAILURE_SEARCH_SUGGESTIONS, json)
+  // async getSearchHistory ({ commit }, data) {
+  //   const res = await fetch(`http://ransj.com/search/history`, {
+  //     method: "POST",
+  //     mode: 'cors',
+  //     credentials: 'include',  // ['cors', include', 'same-origin']
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'x-requested-with': 'XMLHttpRequest',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //   const json = await res.json();
+  //   // console.log(json);
+  //   if(json && json.data) {
+  //     commit(SUCCESS_SEARCH_SUGGESTIONS, json)
+  //   } else {
+  //     commit(FAILURE_SEARCH_SUGGESTIONS, json)
+  //   }
+  // },
+
+  //搜索历史
+  addSearchHistory({commit}, keyword){
+    let findIndex, history = store.get('searchHistory');
+    if(!history || !history.length) {
+      history = []
     }
+    findIndex = history.findIndex((item)=>{
+      return item.name == keyword
+    })
+    if(findIndex != -1) {
+      history.splice(findIndex, 1)
+    }
+
+    //插入新的搜索记录
+    history.unshift({name: keyword})
+    store.set('searchHistory', history);
+
+    commit(ADD_SEARCH_HISTORY, history);
+  },
+
+  getSearchHistory({commit}){
+    let history = store.get('searchHistory');
+    commit(SUCCESS_SEARCH_HISTORY, history);
+  },
+
+  clearSearchHistory({commit}){
+    store.set('searchHistory', [])
+    commit(CLEAR_SEARCH_HISTORY, history);
   },
 
 }
@@ -173,6 +205,14 @@ export const mutations = {
 
   [FAILURE_SEARCH_HISTORY](state, data) {
     state.searchHistory = [];
+  },
+
+  [ADD_SEARCH_HISTORY](state, data){
+    state.searchHistory = data
+  },
+
+  [CLEAR_SEARCH_HISTORY](state,data){
+    state.searchHistory = []
   },
 
 }

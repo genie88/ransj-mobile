@@ -7,6 +7,7 @@
     <div class="scroll-box">
       <!-- <v-loading></v-loading> -->
       <v-search-history 
+        v-on:clearsearchhistory="onClearSearchHistory"
         :cates="cates.data" 
         :history="searchHistory" 
         :hotwords="searchHotWords">
@@ -37,18 +38,22 @@ export default {
     ...mapGetters(['cates','searchHotWords', 'searchSuggestions', 'searchHistory'])
   },
   methods: {
-    ...mapActions(['getProductCates', 'getSearchHotWords', 'getSearchSuggestions', 'getSearchHistory']),
+    ...mapActions(['getProductCates', 'getSearchHotWords', 'getSearchSuggestions', 'getSearchHistory', 'addSearchHistory', 'clearSearchHistory']),
     onSearch(data){
+      this.addSearchHistory(data);
       router.go('/search/result?k='+data)
     },
     onInputChange(data) {
       //获取搜索建议词
+    },
+    onClearSearchHistory(){
+      this.clearSearchHistory()
     }
   },
   route: {
       data ({to}) {
         // this.getSearchHotWords();
-        // this.getSearchHistory();
+        this.getSearchHistory();
         this.getProductCates();
         this.$data.loadingAsyncData = false;
       }

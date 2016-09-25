@@ -7,7 +7,7 @@
             <div class="history-c" id="thistory" v-if="history && history.length">
                 <p class="history-title">
                 <span class="mrf29 f14">·&nbsp;&nbsp;历史搜索&nbsp;&nbsp;·</span>
-                <span class="lightBlue fr" onclick="clearcook()">清除</span></p>
+                <span class="lightBlue fr" @click="clearSearchHistory()">清除</span></p>
                 <div class="history-list" id="myhistory">
                   <a v-for="his in history" 
                     v-link="{path: '/search/result?k='+his.name}">
@@ -55,6 +55,11 @@ export default {
   props: ['cates', 'hotwords', 'history'],
   data () {
     return {
+    }
+  },
+  methods: {
+    clearSearchHistory(){
+      this.$dispatch('clearsearchhistory')
     }
   },
   components:{
