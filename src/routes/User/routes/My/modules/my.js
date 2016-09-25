@@ -7,6 +7,8 @@ import cookie from 'utils/cookie'
 export const SUCCESS_USERINFO = 'SUCCESS_USERINFO';
 export const FAILURE_USERINFO = 'SUCCESS_USERINFO';
 
+export const SUCCESS_LOGOUT = 'SUCCESS_LOGOUT';
+
 // ------------------------------------
 // States
 // ------------------------------------
@@ -55,6 +57,21 @@ export const actions = {
         router.go('/user/login');
         commit(FAILURE_USERINFO);
     }
+  },
+
+  async logout({commit}) {
+    const res = await fetch(`http://ransj.com/user/logout`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      body: ''
+    })
+    commit(SUCCESS_LOGOUT);
+    router.go('/')
   }
 }
 
@@ -68,6 +85,10 @@ export const mutations = {
 
   [SUCCESS_USERINFO](state,data){
     state.userInfo = data.userInfo
+  },
+
+  [SUCCESS_LOGOUT](state,data){
+    state.userInfo = null
   }
 }
 

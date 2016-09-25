@@ -1,6 +1,6 @@
 <template>
     <v-secondary-nav :title="'购物篮'" :btn="''"></v-secondary-nav>
-    <template v-if="cartItems.data.length > 0">
+    <template v-if="cartItems && cartItems.data && cartItems.data.length > 0">
         <!-- 购物车列表 -->
         <section class="cart_product_list mt40">
             <!--产品列表-->
@@ -190,7 +190,7 @@
     </template>
 
     <!-- 空购物车 -->
-    <template v-if="!cartItems.data || cartItems.data.length == 0">
+    <template v-if="!cartItems || !cartItems.data || cartItems.data.length == 0">
         <div class="height45">
         </div>
         <section class="cart_product_list mt40">

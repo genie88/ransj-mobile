@@ -68,12 +68,12 @@
                 </a>
             </li>
             <p class="user_bdm clearfix"></p>
-            <li>
+            <!-- <li>
                 <a v-link="{path: '/user/order/history'}">
                     <img src="../static/img/minePageicon052x.png">
                     <p>我常买的</p>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a v-link="{path: '/user/like'}">
                     <img src="../static/img/minePageicon062x.png">
@@ -86,12 +86,12 @@
                     <p>我的评论</p>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a v-link="{path: '/user/tuan'}">
                     <img src="../static/img/minePageicon102x.png">
                     <p>我的团购</p>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a v-link="{path: '/user/card'}">
                     <img src="../static/img/minePageicon112x.png">
@@ -99,7 +99,7 @@
                 </a>
             </li>
             <li>
-                <a @click.prevent="">
+                <a @click.prevent="logout()">
                     <img src="../static/img/minePageicon122x.png">
                     <p class="c_afc1cb">退出登录</p>
                 </a>
@@ -116,6 +116,11 @@
         props: ['info'],
         data(){
             return {
+            }
+        },
+        methods: {
+            logout(){
+                this.$dispatch('willlogout');
             }
         },
         components:{ 

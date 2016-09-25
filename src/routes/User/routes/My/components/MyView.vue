@@ -1,5 +1,5 @@
 <template>
-  <v-user-panel :info="userInfo"></v-user-panel>
+  <v-user-panel :info="userInfo" v-on:willlogout="onUserLogout"></v-user-panel>
 </template>
 
 <script>
@@ -15,7 +15,11 @@ export default {
         ...mapGetters(['userInfo'])
     },
     methods: {
-        ...mapActions(['getUserInfo'])
+        ...mapActions(['getUserInfo', 'logout', 'showToast']),
+        onUserLogout(){
+            this.logout();
+            this.showToast({tips: '退出登录成功'});
+        }
     },
     route: {
         data (){

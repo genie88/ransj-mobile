@@ -9,7 +9,7 @@
     </div>
 </header>
 <div class="user_content" style="height: 100%; display: block;">
-   <!--  <div class="account_login"><img src="http://ransj.com/static/b2c/css/widgets/headers/logo_modified.png"/></div> -->
+    <div class="account_login"><img src="/images/logo.png"/></div>
     <form action="" method="post" id="register_form">
         <div class="cus_form_list">
             <ul>

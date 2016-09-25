@@ -41,6 +41,7 @@ router.beforeEach(transition => {
 	if (transition.to.auth) {
 		// 对用户身份进行验证...
 		// transition.abort()
+		transition.next()
 	} else {
 		transition.next()
 	}
