@@ -7,74 +7,46 @@
             <form>
                 <div class="f_list pre">
                     <label class="c_1e384b">收货人</label>
-                    <input id="ship_name" type="text" placeholder="姓名">
-                    <div class="recordname" style="display:none;">11</div>
+                    <input v-model="address.accept_name" type="text" placeholder="姓名">
                 </div>
                 <div class="f_list pre">
                     <label class="c_1e384b">联系电话</label>
-                    <input type="text" id="ship_mobile" placeholder="手机号码">
+                    <input type="text" v-model="address.phone" placeholder="手机号码"/>
                 </div>
                 <div class="f_list pre">
                     <label class="c_1e384b">收货地区</label>
                     <div class="area_con ml10">
-                        <span>上海</span>
-                        <span class="ml10">上海市</span>
+                        <span>长沙</span>
+                        <span class="ml10">长沙市</span>
                         <span class="u_area_select">
-                            <select id="area">
-                                <option zip="200001" value="">请选择</option>
-                                
-                                    <option zip="200001" value="23">黄浦区</option>
-                                
-                                    <option zip="200001" value="24">卢湾区</option>
-                                
-                                    <option zip="200001" value="25">徐汇区</option>
-                                
-                                    <option zip="200001" value="26">长宁区</option>
-                                
-                                    <option zip="200001" value="27">静安区</option>
-                                
-                                    <option zip="200001" value="28">普陀区</option>
-                                
-                                    <option zip="200001" value="29">闸北区</option>
-                                
-                                    <option zip="200001" value="30">虹口区</option>
-                                
-                                    <option zip="200001" value="31">杨浦区</option>
-                                
-                                    <option zip="200001" value="35">浦东新区</option>
-                                
-                                    <option zip="200001" value="36">闵行区</option>
-                                
-                                    <option zip="200001" value="37">宝山区</option>
-                                
-                                    <option zip="200001" value="38">嘉定区</option>
-                                
-                                    <option zip="200001" value="39">奉贤区</option>
-                                
-                                    <option zip="200001" value="40">青浦区</option>
-                                
-                                    <option zip="200001" value="41">松江区</option>
-                                
-                                    <option zip="200001" value="42">南汇区</option>
-                                
-                                    <option zip="200001" value="44">金山区</option>
-                                
+                            <select id="area" v-model="address.county" style="width:100px;height:20px;font-size:12px;">
+                                <option value="0">请选择</option>
+                                <option value="430102">芙蓉区</option>
+                                <option value="430103">天心区</option>
+                                <option value="430104">岳麓区</option>
+                                <option value="430105">开福区</option>
+                                <option value="430111">雨花区</option>
+                                <option value="430122">望城区</option>
+                                <option value="430121">长沙县</option>
                             </select>
                         </span>
                     </div>
                 </div>
                 <div class="f_list pre">
                     <label class="c_1e384b">详细地址</label>
-                    <input type="text" placeholder="填写地址" id="ship_addr">
+                    <input type="text" placeholder="填写地址" v-model="address.addr">
                 </div>
                 <div class="f_list pre">
                     <span class="c_1e384b">设为默认地址</span>
-                    <span class="switch fr core"><span class="switch_bar"></span></span>
+                    <span class="switch fr core" :class="defaultAddr ? 'on': ''"
+                        @click="toggleDefaultAddr()">
+                        <span class="switch_bar"></span>
+                    </span>
                 </div>
                 
             </form>
         </div>
-        <div class="keep_btn mt20" id="btn-submit">保存</div>
+        <div class="keep_btn mt20" @click.prevent="onSaveAddress()">保存</div>
     </div>
 
     
@@ -86,14 +58,25 @@ import vTabHeader from '../../../../../components/TabHeader'
 export default {
     data () {
         return {
-            
+            address: {
+                county:0
+            },
+            defaultAddr: false
         }
     },
     computed: {
-
+        ...mapGetters(['addresses']),
     },
     methods: {
-
+        ...mapActions(['saveAddress', 'showToast']),
+        toggleDefaultAddr(){
+            this.$data.defaultAddr = !this.$data.defaultAddr;
+            this.$data.address.is_default = this.$data.defaultAddr ? 1 : 0;
+        },
+        onSaveAddress(){
+            this.showToast({tips: '添加地址成功'})
+            console.log(this.$data.address);
+        }
     },
     route: {
         data (){

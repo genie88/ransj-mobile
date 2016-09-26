@@ -9,6 +9,8 @@ const createRoutes = {
     '/coupon': require("./Coupon"), // 优惠券
     '/score': require("./Score"), // 积分
     '/setting': require("./Setting"), // 设置 (基本信息\安全中心\收货地址)
+    '/address/add': require("./Setting/addAddr"), // 添加收货地址
+    '/address/sel': require("./Setting/selAddr"), // 选择收货地址
 	'/login': require("./Login"),
     '/register': require("./Register")
 }

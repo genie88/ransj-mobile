@@ -11,10 +11,14 @@ export const CHANGE_MENU = 'CHANGE_MENU';
 export const SHOW_TOAST = 'SHOW_TOAST';
 export const HIDE_TOAST = 'HIDE_TOAST';
 
+export const SHOW_CONFIRM_DIALOG = 'SHOW_CONFIRM_DIALOG';
+export const HIDE_CONFIRM_DIALOG = 'HIDE_CONFIRM_DIALOG';
+
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
+    globalComfirmDialog: null,
     tips: false,
     menus: [{
       current: true,
@@ -45,7 +49,8 @@ const state = {
 // ------------------------------------
 export const getters = {
   footerMenus: state => state.menus,
-  globalTips: state => state.tips
+  globalTips: state => state.tips,
+  globalComfirmDialog: state => state.globalComfirmDialog
 }
 
 // ------------------------------------
@@ -57,7 +62,15 @@ export const actions = {
     setTimeout(()=>{
       commit(HIDE_TOAST);
     }, 1000)
-  }
+  },
+
+  showConfirmDialog ({ commit }, data) {
+    commit(SHOW_CONFIRM_DIALOG, data);
+  },
+
+  hideConfirmDialog ({ commit }, data) {
+    commit(HIDE_CONFIRM_DIALOG, data);
+  },
 }
 
 // ------------------------------------
@@ -84,6 +97,15 @@ export const mutations = {
 
   [HIDE_TOAST] (state, tips){
     state.tips = false
+  },
+
+  // 全局确认弹窗
+  [SHOW_CONFIRM_DIALOG] (state, data){
+    state.globalComfirmDialog = data;
+  },
+
+  [HIDE_CONFIRM_DIALOG] (state){
+    state.globalComfirmDialog = null;
   },
 }
 

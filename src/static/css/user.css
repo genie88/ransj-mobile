@@ -653,10 +653,10 @@ opacity:1;
 	-webkit-transform: rotate(-90deg);
 	transform: rotate(-90deg);
  }
-.user_addaddress  span{ 
+.user_addaddress  a{ 
 	margin-left:.2rem;
 }
-.user_addaddress  span:before{ 
+.user_addaddress  a:before{ 
 	display: inline-block;
     content: '';
     width: 1rem;
@@ -1052,6 +1052,12 @@ opacity:1;
 	box-shadow: -1px 1px 5px rgba(0,0,0,.4);
 }
 
+.switch.on{
+	background-color: #1b374b;
+}
+.switch.on .switch_bar{
+	margin-left: 1rem;
+}
 /* 订单 */
 .b_bottom2{ 
 	border-bottom:.2rem solid #afc1cb;

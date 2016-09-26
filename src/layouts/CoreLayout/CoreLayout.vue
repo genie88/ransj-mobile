@@ -12,6 +12,20 @@
             </dd>
         </dl>
     </div>
+
+    <!-- 全局弹窗模块 -->
+    <div class="open_pop" v-if="globalComfirmDialog">
+        <div class="pop_bg"></div>
+        <div class="sendTime_pop txtc">
+            <p class="fb mt10">{{globalComfirmDialog.title}}</p>
+            <p class="fb mt10"></p>
+            <p class="f9 c_b0c2cc">{{globalComfirmDialog.content}}</p>
+            <p class="mt20 giveup">
+                <a @click.prevent="onConfirmDialogCancle" class="fl qx">取消</a>
+                <a @click.prevent="onConfirmDialogOk" class="fr qd">确定</a>
+            </p>
+        </div>
+    </div>
     
 </template>
 <script>
@@ -23,8 +37,19 @@ export default {
 	data () {
         return {}
     },
+    methods: {
+        ...mapActions(['hideConfirmDialog']),
+        onConfirmDialogOk(){
+            this.globalComfirmDialog.onConfirm && this.globalComfirmDialog.onConfirm();
+            this.hideConfirmDialog();
+        },
+        onConfirmDialogCancle(){
+            this.globalComfirmDialog.onCancle && this.globalComfirmDialog.onCancle();
+            this.hideConfirmDialog();
+        }
+    },
 	computed: {
-        ...mapGetters(['footerMenus', 'globalTips'])
+        ...mapGetters(['footerMenus', 'globalTips', 'globalComfirmDialog'])
     },
 	components: {
 		vHeader,
