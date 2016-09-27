@@ -8,7 +8,8 @@
                 <ul>
                     <li>
                         <!-- 新用户没有地址时，添加收货地址 -->
-                        <a class="addDres" v-if="casherInfo.addrlist.length == 0">
+                        <a v-link="{path: '/user/addr?return_url=/cart'}" class="addDres" 
+                            v-if="casherInfo.addrlist.length == 0">
                             <div class="address_info wd95 fl" id="defortinfo">
                             </div>
                         </a>

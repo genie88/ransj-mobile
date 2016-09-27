@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import promise from 'es6-promise'
 import fetch from 'isomorphic-fetch'
+import VueValidator from 'vue-validator'
 import App from 'App'
 import { routes, alias }  from './routes'
 import a from './utils/filter'
@@ -21,6 +22,7 @@ Vue.mixin({
 	// 	getters: {  }
 	// }
 })
+Vue.use(VueValidator)
 Vue.use(Router)
 
 const router = new Router({
