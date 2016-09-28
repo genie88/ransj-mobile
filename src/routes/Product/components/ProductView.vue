@@ -80,7 +80,7 @@ export default {
   route: {
       data ({to}) {
         if(isNaN(to.params.id)){
-          router.go('/home');
+          router.go('/');
           return;
         } else {
           this.$data.id = to.params.id;

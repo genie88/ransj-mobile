@@ -151,9 +151,10 @@ export const actions = {
         body: ''
       })
       const json = await res.json();
-      console.log(json);
+      // console.log(json);
       if(json && json.length) {
         commit(SUCCESS_GET_ADDRESS, json);
+        return json;
       } else {
         commit(FAILURE_GET_ADDRESS, json);
       }

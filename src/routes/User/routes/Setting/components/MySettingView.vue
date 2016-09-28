@@ -204,6 +204,11 @@ export default {
 
         },
 
+        //编辑按钮
+        editAddress(id){
+            router.go(`/user/address/edit/${id}`)
+        },
+
         //删除收货地址
         confirmDeleteAddress(id){
             this.showConfirmDialog({
