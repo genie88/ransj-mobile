@@ -2,6 +2,7 @@
 const createRoutes = {
     '/my': require('./My'),         // 用户中心
     '/order': require("./Order"),   // 我的订单
+    '/like': require("./Like"),     // 我的喜欢
     '/order/status/:status': require("./Order"),
     // '/like': require("./Like"),     // 我喜欢的 
     // '/comment': require("./Comment"), // 评论

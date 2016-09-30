@@ -1,10 +1,10 @@
 <template>
     <v-secondary-nav :title="'基本信息'">
     </v-secondary-nav>
-    <v-tab-header :tabs="tabs" v-on:tabchange="onTabChange()">
+    <v-tab-header :tabs="tabs" v-on:tabchange="onTabChange">
     </v-tab-header>
     <!-- 基本信息设置 -->
-    <form enctype="multipart/form-data" id="upForm" method="POST" v-if="showTab == 1">
+    <form enctype="multipart/form-data" id="upForm" method="POST" v-if="showTab == 0">
         <div class="height45">
         </div>
         <div class="user_content wd80 pb20" style="display: block;">
@@ -69,7 +69,7 @@
         </div>
     </form>
     <!-- 安全设置 -->
-    <div class="user_content wd90" style="display: block;" v-if="showTab == 1">
+    <div class="user_content wd90" v-if="showTab == 1">
         <div class="height45"></div>
         <div class="tips pt10">
             建议您开启全部安全设置，以保障账户及资金安全
@@ -116,7 +116,7 @@
         </hr>
     </div>
     <!-- 收货地址 -->
-    <div class="user_content" id="addrManager" style="display: block;" v-if="showTab == 0">
+    <div class="user_content" id="addrManager" v-if="showTab == 2">
         <div class="height45"></div>
         <div class="user_addaddress">
             <a class="f14" v-link="{path: '/user/address/add'}">
@@ -192,7 +192,11 @@ export default {
         ...mapActions(['getUserInfo', 'saveUserInfo', 'showToast', 'showConfirmDialog', 'getReceiptAdress', 'delReceiptAdress']),
         //tab切换
         onTabChange(index){
-            console.log(index);
+            this.$data.showTab = index;
+            this.$data.tabs.forEach((tab)=>{
+                tab.current = false;
+            })
+            this.$data.tabs[index].current = true;
         },
         //设置性别
         setGender(gender){
