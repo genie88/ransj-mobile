@@ -170,6 +170,7 @@ export const mutations = {
 
   [SUCCESS_UPDATE_CART_ITEM](state, data){
     // 替换更新的item
+    let num = 0;
     for (let i=0; i<state.cartItems.data.length; i++) {
       let item = state.cartItems.data[i];
       if(item.product_id == data.product_id) {
@@ -181,9 +182,11 @@ export const mutations = {
         }
         state.cartItems.data[i].qty = data.qty;
         state.cartItems.data[i].price = data.price;
-        break;
       }
+      num += state.cartItems.data[i].qty;
     }
+
+    state.cartItems.num = num;
   },
 
   // 获取购物车信息
