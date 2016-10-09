@@ -2,21 +2,13 @@
     <v-secondary-nav :title="'选择地址'"></v-secondary-nav>
 
     <div class="user_content">
-        <div class="user_addaddress" id="add">
-            <span class="f14">添加收货地址</span>
-        </div>
         
-        <div class="user_address_items" id="20831">
-            <div class="user_address" onclick="confirm(20831,'ddd','上海上海市卢湾区','fadfadsfasdfad','200001','','18099876654','true','mainland:上海/上海市/卢湾区:24')">
+        <div class="user_address_items" v-for="addr in addresses"  @click="selectAddr(addr)">
+            <div class="user_address">
                 <div class="address_info">
-                    <div class="name f14"><span class="mr5">ddd</span>|<span class="ml5">18099876654</span></div>
-                    <div class="f14 mt5">上海上海市卢湾区fadfadsfasdfad</div>
+                    <div class="name f14"><span class="mr5">{{addr.accept_name}}</span>|<span class="ml5">{{addr.mobile}}</span></div>
+                    <div class="f14 mt5">{{addr.province}}{{addr.city}}{{addr.county}}{{addr.addr}}</div>
                 </div>
-            </div>
-            <div class="new_addr_btn">
-                <div class="f14 fl"><label>默认地址</label></div>
-                <div class="del_adress f14" onclick="deleteAddrm(20831)"><span></span>删除</div>
-                <div class="bj_adress f14" onclick="edit(20831,'ddd','mainland:上海/上海市/卢湾区:24','fadfadsfasdfad','200001','','18099876654','true')"><span></span>编辑</div>
             </div>
         </div> 
     </div>
@@ -34,14 +26,18 @@ export default {
         }
     },
     computed: {
-
+        ...mapGetters(['addresses'])
     },
     methods: {
-
+        ...mapActions(['getReceiptAdress', 'updateCasherAddr']),
+        selectAddr(addr){
+            this.updateCasherAddr(addr);
+            router.go('/casher');
+        }
     },
     route: {
         data (){
-
+            this.getReceiptAdress();
         }
     },
     components: {

@@ -23,7 +23,7 @@
                                     {{addr.addr}}
                                 </p>
                             </div>
-                            <span class="fr pre">
+                            <span class="fr pre" @click="gotoSelectAddr()">
                                 <span class="gourl">
                                 </span>
                             </span>
@@ -526,10 +526,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['casherInfo']),
+        ...mapGetters(['casherInfo', 'lastCheckout']),
     },
     methods: {
-        ...mapActions(['createOrder']),
+        ...mapActions(['createOrder', 'checkout']),
         submitOrder(){
             // let formdata = new FormData();
             // formdata.append('address', this.casherInfo.addrlist[0].id)
@@ -548,11 +548,24 @@ export default {
             }
 
             this.createOrder(formdata)
+        },
+        gotoSelectAddr(){
+            router.go('/user/address/sel')
         }
     },
     route: {
         data (){
-            
+            //如果有casherInfo
+            if(this.casherInfo && this.casherInfo.check_goods) {
+                return;
+            }
+            //如果没有 casherInfo 但是有 lastCheckout信息，重新获取casherInfo
+            if(this.lastCheckout) {
+                this.checkout(this.lastCheckout)
+                return;
+            }
+            //如果既没有casherInfo也没有lastCheckout 信息，则重定向到购物车页面
+            router.go('/cart');
         }
     },
     components: {

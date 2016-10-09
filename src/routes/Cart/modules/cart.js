@@ -19,6 +19,12 @@ export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST'; // 结算请求
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
+// 保持最新一次的订单提交记录，用于提交订单页面 需要选择地址/优惠券等重新回到收银柜台页面的连续操作
+export const LAST_CHECKOUT_UPDATE = 'LAST_CHECKOUT_UPDATE'; 
+
+//更新收货地址
+export const UPDATE_CASHER_ADDR = 'UPDATE_CASHER_ADDR';
+
 
 
 // ------------------------------------
@@ -27,7 +33,7 @@ export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 const state = {
   cartItems: {},
   casherInfo: {},
-  lastCheckout: null
+  lastCheckout: ''
 }
 
 // ------------------------------------
@@ -35,7 +41,8 @@ const state = {
 // ------------------------------------
 export const getters = {
   cartItems: state => state.cartItems,
-  casherInfo: state => state.casherInfo
+  casherInfo: state => state.casherInfo,
+  lastCheckout: state => state.lastCheckout
 }
 
 // ------------------------------------
@@ -138,6 +145,7 @@ export const actions = {
         body: data   //ids=254&qty=1&ids=253&qty=3&Submit=&coupon_code=
       })
       const json = await res.json();
+      commit(LAST_CHECKOUT_UPDATE, data);
       // console.log(json);
       if(json && json.data && json.errno == 0) {
         commit(CHECKOUT_SUCCESS, json.data)
@@ -155,6 +163,11 @@ export const actions = {
     //从购物车中移除商品
     removeCartItem(){
 
+    },
+
+    //更新收货地址
+    updateCasherAddr({commit}, addr){
+      commit(UPDATE_CASHER_ADDR, addr)
     }
 }
 
@@ -208,11 +221,21 @@ export const mutations = {
 
   [CHECKOUT_SUCCESS] (state, data) {
     state.casherInfo = data;
-    state.lastCheckout = 'successful';
+    state.lastCheckout = '';
+  },
+
+  //保持最新一次订单提交的信息
+  [LAST_CHECKOUT_UPDATE] (state, data) {
+    state.lastCheckout = data;
   },
 
   [CHECKOUT_FAILURE] (state, savedCartItems) {
 
+  },
+
+  //更新收货地址
+  [UPDATE_CASHER_ADDR] (state, addr) {
+    state.casherInfo.addrlist = [addr];
   }
 }
 
