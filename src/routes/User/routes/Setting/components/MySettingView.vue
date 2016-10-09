@@ -69,7 +69,7 @@
         </div>
     </form>
     <!-- 安全设置 -->
-    <div class="user_content wd90" v-if="showTab == 1">
+    <!-- <div class="user_content wd90" v-if="showTab == 1">
         <div class="height45"></div>
         <div class="tips pt10">
             建议您开启全部安全设置，以保障账户及资金安全
@@ -114,7 +114,49 @@
                 </form>
             </div>
         </hr>
+    </div> -->
+    <div class="user_content wd90" v-if="showTab == 1">
+        <div class="form1 pt10" style="margin-top:100px;">
+            <validator name="UPDATEPASSWORD">
+            <form method="post" action="">
+                <div class="f_list pre">
+                    <label class="c_1e384b">旧密码</label>
+                    <input v-model="security.oldpassword" type="password" 
+                    v-validate:oldpassword="{ required: true, minlength: 6, maxlength: 20 }"
+                    placeholder="输入旧密码" id="passwordOld">
+                    <span class="m_tips1" v-if="$UPDATEPASSWORD.oldpassword.touched">
+                        <span v-if="$UPDATEPASSWORD.oldpassword.required">请输入旧密码</span>
+                        <span v-if="$UPDATEPASSWORD.oldpassword.minlength">密码太短</span>
+                        <span v-if="$UPDATEPASSWORD.oldpassword.maxlength">密码太长</span>
+                    </span>
+                </div>
+                <div class="f_list pre">
+                    <label class="c_1e384b">新密码</label>
+                    <input v-model="security.password" type="password" 
+                    v-validate:oldpassword="{ required: true, minlength: 6, maxlength: 20 }"
+                    name="pass" vlaue="" placeholder="6-20个字符" id="passwordNew">
+                    <span class="m_tips2">强度<strong class="t_word"></strong></span>
+                    <span class="t_info pass_put">请输入6-20位密码</span>
+                    <!-- <span class='safe'>强度<strong class='word'></strong></span> -->
+                    <span class="m_tips3 pass_error"></span>
+                    <span class="m_tips1 pass_ok"></span>
+                </div>
+                <div class="f_list pre">
+                    <label class="c_1e384b">确认密码</label>
+                    <input v-model="security.password2" type="password" 
+                    v-validate:oldpassword="{ required: true, minlength: 6, maxlength: 20 }"
+                    name="confirm_pass" placeholder="再次输入新密码" id="passwordConfirm">
+                    <!-- <span class="m_tips3"></span> -->
+                    <span class="t_info confirm_put">请再次输入密码</span>
+                    <span class="m_tips3 confirm_error"></span>
+                    <span class="m_tips1 confirm_ok"></span>
+                </div>
+            </form>
+            </validator>
+        </div>
+        <div class="keep_btn mt20" @click="onUpdatePassword()">确认</div>
     </div>
+
     <!-- 收货地址 -->
     <div class="user_content" id="addrManager" v-if="showTab == 2">
         <div class="height45"></div>
@@ -181,7 +223,13 @@ export default {
                 gender: '',
                 username: '',
                 mobile: '',
+                gender: 0,
                 qq: ''
+            },
+            security: {
+                password: '',
+                password2: '',
+                oldpassword: '',
             }
         }
     },
@@ -189,7 +237,7 @@ export default {
         ...mapGetters(['userInfo', 'addresses'])
     },
     methods: {
-        ...mapActions(['getUserInfo', 'saveUserInfo', 'showToast', 'showConfirmDialog', 'getReceiptAdress', 'delReceiptAdress']),
+        ...mapActions(['getUserInfo', 'saveUserInfo', 'showToast', 'showConfirmDialog', 'getReceiptAdress', 'delReceiptAdress', 'updatePassword', 'updateUserProfile']),
         //tab切换
         onTabChange(index){
             this.$data.showTab = index;
@@ -201,11 +249,35 @@ export default {
         //设置性别
         setGender(gender){
             this.$data.user.gender = gender;
-            console.log(this.$data.user)
+            console.log(JSON.stringify(this.$data.user))
         },
         //保持用户信息
         saveUserInfo(){
+             console.log(JSON.stringify(this.$data.user))
+            this.updateUserProfile(this.$data.user).then((json) => {
 
+                if(json && json.errno == 0) {
+                    this.showToast({tips: '用户信息更新成功'});
+                } else {
+                    this.showToast({tips: json.errmsg, fail: true});
+                }
+            })
+        },
+
+        //更新密码
+        onUpdatePassword(){
+            if(!this.$UPDATEPASSWORD.valid) {
+                this.showToast({tips: '请检查输入是否正确!', fail: true});
+                return;
+            }
+            // console.log(JSON.stringify(this.$data.security))
+            this.updatePassword(this.$data.security).then((json) => {
+                if(json && json.errno == 0) {
+                    this.showToast({tips: '密码修改成功'});
+                } else {
+                    this.showToast({tips: json.errmsg, fail: true});
+                }
+            })
         },
 
         //编辑按钮
@@ -232,7 +304,7 @@ export default {
                 gender: newval.gender,
                 username: newval.username,
                 mobile: newval.mobile,
-                qq: newval.qq || newval.email
+                qq: newval.qq
             }; 
         }
     },

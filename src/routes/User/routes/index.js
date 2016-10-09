@@ -5,7 +5,7 @@ const createRoutes = {
     '/like': require("./Like"),     // 我的喜欢
     '/order/status/:status': require("./Order"),
     // '/like': require("./Like"),     // 我喜欢的 
-    // '/comment': require("./Comment"), // 评论
+    '/comment': require("./Comment"), // 评论
     '/card': require("./Card"),     // 充值卡 
     '/coupon': require("./Coupon"), // 优惠券
     '/score': require("./Score"), // 积分

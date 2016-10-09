@@ -17,7 +17,7 @@
                 <span class="c_fff f12">友善会员</span>
             </div>
         </div>
-        <div class="wd100 user_bar">
+        <div class="wd100 user_bar dn">
             <ul>
                 <li>
                     <a v-link="{path: '/user/balance'}">
@@ -81,7 +81,7 @@
                 </a>
             </li>
             <li>
-                <a v-link="{path: '/user/comments'}">
+                <a v-link="{path: '/user/comment'}">
                     <img src="../static/img/minePageicon072x.png">
                     <p>我的评论</p>
                 </a>
@@ -92,12 +92,12 @@
                     <p>我的团购</p>
                 </a>
             </li> -->
-            <li>
+            <!-- <li>
                 <a v-link="{path: '/user/card'}">
                     <img src="../static/img/minePageicon112x.png">
                     <p>我的充值卡</p>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a @click.prevent="logout()">
                     <img src="../static/img/minePageicon122x.png">

@@ -23,6 +23,12 @@ export const SUCCESS_UPDATE_ADDRESS = 'SUCCESS_UPDATE_ADDRESS'; //修改地址
 export const FAILURE_UPDATE_ADDRESS = 'FAILURE_UPDATE_ADDRESS';
 
 
+export const SUCCESS_UPDATE_PASSWORD = 'SUCCESS_UPDATE_PASSWORD'; //更新密码
+export const FAILURE_UPDATE_PASSWORD = 'FAILURE_UPDATE_PASSWORD';
+
+export const SUCCESS_UPDATE_USER_PROFILE = 'SUCCESS_UPDATE_USER_PROFILE'; //更新用户个人资料
+export const FAILURE_UPDATE_USER_PROFILE = 'FAILURE_UPDATE_USER_PROFILE';
+
 
 // ------------------------------------
 // States
@@ -94,6 +100,7 @@ export const actions = {
       console.log(json);
       if(json && json.errno == 0) {
         commit(SUCCESS_UPDATE_ADDRESS, json);
+        return json;
       } else {
         if(json && json.errno == -2) {
             router.go('/user/login');
@@ -163,6 +170,60 @@ export const actions = {
     }
   },
 
+
+
+  // 更新用户密码 {oldpassword: 'xxx', password: 'yyy'}
+  async updatePassword({commit}, data){
+    try{
+      const res = await fetch(`http://ransj.com/user/updatepassword`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json();
+      if(json && json.errno == 0) {
+        commit(SUCCESS_UPDATE_PASSWORD, json);
+      } else {
+        commit(FAILURE_UPDATE_PASSWORD, json);
+      }
+      return json;
+    } catch (e) {
+        commit(FAILURE_UPDATE_PASSWORD);
+    }
+  },
+
+  // 更新用户资料 
+  async updateUserProfile({commit}, data){
+    try{
+      const res = await fetch(`http://ransj.com/user/updateprofile`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json();
+      if(json && json.errno == 0) {
+        commit(SUCCESS_UPDATE_USER_PROFILE, json);
+        return json;
+      } else {
+        commit(FAILURE_UPDATE_USER_PROFILE, json);
+      }
+    } catch (e) {
+        commit(FAILURE_UPDATE_USER_PROFILE);
+    }
+  },
+
   async logout({commit}) {
     const res = await fetch(`http://ransj.com/user/logout`, {
       method: "POST",
@@ -224,7 +285,26 @@ export const mutations = {
         state.addresses.splice(index, 1)
       }
     }
-  }
+  },
+
+  //更新用户资料
+  [SUCCESS_UPDATE_USER_PROFILE] (state, data){
+
+  },
+
+  [FAILURE_UPDATE_USER_PROFILE] (state, data){
+    
+  },
+
+  //更新用户密码
+  [SUCCESS_UPDATE_PASSWORD] (state, data){
+
+  },
+
+  [FAILURE_UPDATE_PASSWORD] (state, data){
+    
+  },
+
 }
 
 

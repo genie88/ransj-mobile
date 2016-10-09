@@ -2,7 +2,9 @@
     <v-secondary-nav :title="'选择地址'"></v-secondary-nav>
 
     <div class="user_content">
-        
+        <a class="user_addaddress" id="add" v-link="{path: '/user/address/add?from=casher'}">
+            <span class="f14">添加收货地址</span>
+        </a>
         <div class="user_address_items" v-for="addr in addresses"  @click="selectAddr(addr)">
             <div class="user_address">
                 <div class="address_info">

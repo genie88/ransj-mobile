@@ -19,7 +19,6 @@
                 <div class="f_list pre">
                     <label class="c_1e384b">手机号码</label>
                     <input type="text" v-model="address.mobile"
-                        v-validate:mobile="{ pattern: '/^\d{11}$/' }"
                         placeholder="手机号码"/>
                     <div class="f12 c_e88671 mt10" v-if="$VDT.mobile.touched">
                         <p v-if="$VDT.mobile.pattern">
@@ -77,6 +76,7 @@ import vTabHeader from '../../../../../components/TabHeader'
 export default {
     data () {
         return {
+            returnToCasher: false,
             address: {
                 province: 430000,
                 city: 430100,
@@ -89,7 +89,7 @@ export default {
         ...mapGetters(['addresses']),
     },
     methods: {
-        ...mapActions(['updateReceiptAdress', 'showToast', '']),
+        ...mapActions(['updateReceiptAdress', 'showToast', 'updateCasherAddr']),
         toggleDefaultAddr(){
             this.$data.defaultAddr = !this.$data.defaultAddr;
             this.$data.address.is_default = this.$data.defaultAddr ? 1 : 0;
@@ -102,13 +102,22 @@ export default {
             }
             this.updateReceiptAdress(this.$data.address).then((json)=>{
                 this.showToast({tips: '添加地址成功'});
+                if(this.$data.returnToCasher) {
+                    //更新收货地址
+                    this.updateCasherAddr(json.data.address);
+                    router.go('/casher');
+                } else {
+                    // router.go('/user/setting');
+                }
             })
             
         }
     },
     route: {
-        data (){
-
+        data ({to}){
+            if(to.query.from == 'casher') {
+                this.$data.returnToCasher = true;
+            }
         }
     },
     components: {

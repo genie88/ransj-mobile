@@ -16,8 +16,10 @@
             原价¥{{info.price | getPrice 1}}
         </span>
       </p>
-      <span class="lovein"></span>
-      <span class="fly_texts">已喜欢</span>
+      <!-- loveinred -->
+      <span class="lovein" :class="hasLiked? 'loveinred': ''" @click="onLikeClick(info.id)"></span>
+      <!-- loveanimate greytext -->
+      <span class="fly_texts loveanimate greytext">已喜欢</span>
     </div>
 
     <!-- 促销 -->
@@ -47,18 +49,42 @@
 
 </template>
 
-<script>    
+<script>   
+import { mapActions, mapGetters } from 'vuex' 
     export default {
         name: 'v-product-card',
         props: ['info'],
         data(){
             return {
+                hasLiked: false
             }
         },
         computed: {
 
         },
+        methods: {
+            ...mapActions(['addToLike', 'dislike']),
+
+            //喜爱按钮点击事件
+            onLikeClick(id){
+                //判断是否登录，未登录提示登录
+                if(!this.$data.hasLiked) {
+                    //如果没有喜欢过，则为添加到喜欢
+                    this.addToLike(id).then((json) => {
+                        this.$data.hasLiked = true;
+                    })
+                } else {
+                    //如果已经喜欢过，则为取消喜欢
+                    this.dislike(id).then((json) => {
+                        this.$data.hasLiked = false;
+                    })
+                }
+                
+            }
+        },
+
         components:{
+
         },
 
         watch: {

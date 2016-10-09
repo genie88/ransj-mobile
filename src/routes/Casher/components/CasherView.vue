@@ -8,10 +8,13 @@
                 <ul>
                     <li>
                         <!-- 新用户没有地址时，添加收货地址 -->
-                        <a v-link="{path: '/user/addr?return_url=/cart'}" class="addDres" 
-                            v-if="casherInfo.addrlist.length == 0">
-                            <div class="address_info wd95 fl" id="defortinfo">
+                        <a v-link="{path: '/user/address/add?from=casher'}" class="hadAddress" v-if="casherInfo.addrlist.length == 0">
+                            <div class="address_info wd95 fl" id="addressinfo">
+                                <span class="addEnter"></span>
+                                <span class="c_9b9b9b f12">添加收货地址</span>
+                                <span class="fr pre c_1e384b f12"></span>
                             </div>
+                            <span class="fr pre"><span class="gourl"></span></span>
                         </a>
                         <!-- 已有地址，选择默认地址 -->
                         <a class=" hadAddress" v-for="addr in casherInfo.addrlist">
@@ -20,7 +23,7 @@
                                     {{addr.accept_name}} | {{addr.mobile}}
                                 </p>
                                 <p>
-                                    {{addr.addr}}
+                                    {{addr.province}}{{addr.city}}{{addr.county}}{{addr.addr}}
                                 </p>
                             </div>
                             <span class="fr pre" @click="gotoSelectAddr()">
