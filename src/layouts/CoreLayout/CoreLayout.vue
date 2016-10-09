@@ -1,7 +1,7 @@
 <template>
 	<router-view></router-view>
 	<slot></slot>
-	<v-footer :menus="footerMenus"></v-footer>
+	<v-footer :menus="footerMenus" :carts="cartItems"></v-footer>
 
     <!-- toast tips -->
     <div class="m-global-tips-box m-ani-in" v-if="globalTips">
@@ -38,7 +38,7 @@ export default {
         return {}
     },
     methods: {
-        ...mapActions(['hideConfirmDialog']),
+        ...mapActions(['hideConfirmDialog', 'getCartInfo', 'updateBadge']),
         onConfirmDialogOk(){
             this.globalComfirmDialog.onConfirm && this.globalComfirmDialog.onConfirm();
             this.hideConfirmDialog();
@@ -49,12 +49,15 @@ export default {
         }
     },
 	computed: {
-        ...mapGetters(['footerMenus', 'globalTips', 'globalComfirmDialog'])
+        ...mapGetters(['footerMenus', 'globalTips', 'globalComfirmDialog', 'cartItems'])
     },
 	components: {
 		vHeader,
 		vFooter
-	}
+	},
+    ready(){
+        this.getCartInfo();
+    }
 }
 </script>
 <!-- <style src="./styles.css"></style> -->

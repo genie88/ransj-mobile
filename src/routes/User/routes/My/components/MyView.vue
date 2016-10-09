@@ -15,7 +15,7 @@ export default {
         ...mapGetters(['userInfo'])
     },
     methods: {
-        ...mapActions(['getUserInfo', 'logout', 'showToast']),
+        ...mapActions(['getUserInfo', 'logout', 'showToast', 'changeMenu']),
         onUserLogout(){
             this.logout();
             this.showToast({tips: '退出登录成功'});
@@ -24,6 +24,7 @@ export default {
     route: {
         data (){
             this.getUserInfo();
+            this.changeMenu(3);
         }
     },
     components: {

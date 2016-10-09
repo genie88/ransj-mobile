@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     ...mapActions(['getProductCates', 'getHomeSliders', 'getHotArticles', 
-      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast']),
+      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast', 'changeMenu']),
     addToCartClick(data){
       this.addToCart(data);
       this.showToast({tips: data.title});
@@ -58,6 +58,7 @@ export default {
         this.getHotArticles();
         this.getHotProducts();
         this.showToast({tips: '欢迎回来'});
+        this.changeMenu(0);
         this.$data.loadingAsyncData = false;
       }
   },

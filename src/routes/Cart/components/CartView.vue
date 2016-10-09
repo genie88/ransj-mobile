@@ -288,7 +288,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout', 'getProductViewHistory', 'addToLike']),
+        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout', 'getProductViewHistory', 'addToLike', 'changeMenu']),
 
         //调整购物车数量
         decrease(id){
@@ -324,6 +324,7 @@ export default {
         data (){
             this.getCartInfo();
             this.getProductViewHistory();
+            this.changeMenu(2);
         }
     },
     components: {

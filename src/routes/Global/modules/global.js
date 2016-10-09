@@ -71,6 +71,14 @@ export const actions = {
   hideConfirmDialog ({ commit }, data) {
     commit(HIDE_CONFIRM_DIALOG, data);
   },
+
+  updateBadge({ commit }, badge){
+    commit(UPDATE_BADGE, badge);
+  },
+
+  changeMenu({ commit }, index){
+    commit(CHANGE_MENU, index);
+  }
 }
 
 // ------------------------------------

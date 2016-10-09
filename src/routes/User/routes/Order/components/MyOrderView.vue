@@ -1,6 +1,6 @@
 <template>
     <v-secondary-nav :title="'我的订单'"></v-secondary-nav>
-    <v-tab-header></v-tab-header>
+    <v-tab-header :tabs="tabs" :tabchange="onTabChange"></v-tab-header>
     <section id="orderList" style="margin-top: 8rem; margin-bottom: 4rem; height: auto; overflow: hidden;background:#f5f5f5;">
         <!-- 全部订单 -->
         <div class="scroller">
@@ -47,7 +47,34 @@ import vTabHeader from '../../../../../components/TabHeader'
 export default {
     data () {
         return {
-            
+            tabs: [{
+                index: 0,
+                current: true,
+                name: '所有',
+                link: '/user/order'
+            },{
+                index: 1,
+                name: '待付款',
+                link: '/user/order/status/2'
+            },{
+                index: 2,
+                name: '待收货',
+                link: '/user/order/status/3'
+            }
+            ,{
+                index: 3,
+                name: '待评论',
+                link: '/user/order/status/4'
+            },{
+                index: 4,
+                name: '已完成',
+                link: '/user/order/status/5'
+            },{
+                index: 5,
+                name: '已作废',
+                link: '/user/order/status/6'
+            }
+            ]
         }
     },
     computed: {
@@ -57,8 +84,25 @@ export default {
         ...mapActions(['getMyOrderInfo'])
     },
     route: {
-        data (){
-            this.getMyOrderInfo();
+        data ({to}){
+            //无效的状态参数 
+            let status = parseInt(to.params.status)
+            if( !isNaN(status) && status > 6) {
+                route.go('/user/order');
+                return
+            }
+
+            //确定待显示的订单的类别
+            if(!isNaN(status)){
+                this.$data.tabs.forEach((item) => item.current = false);
+                // console.log(this.$data.tabs, status)
+                this.$data.tabs[status].current = true;
+                this.$data.status = status;
+                this.getMyOrderInfo({status: status});
+            } else {
+                this.getMyOrderInfo();
+            }
+            
         }
     },
     components: {

@@ -69,11 +69,11 @@
                             <a class="order_btn remind_btn" v-if="info.status == 3 && info.delivery_status == 0" @click.prevent="remindSend(info.id)">
                                 提醒发货
                             </a>
-                            <a class="order_btn confirm_btn" v-if="info.status == 3 && info.delivery_status == 1" @click.prevent="comfirmReceive(info.id)">
+                            <a class="order_btn confirm_btn" v-if="info.status == 3 && info.delivery_status == 1" @click.prevent="confirmReceipt(info.id)">
                                 确认收货
                             </a>
-                            <a class="order_btn comment_btn" v-if="info.status == 4" @click.prevent="commentOrder(info.id)">
-                                待评论
+                            <a class="order_btn comment_btn" v-if="info.status == 4" v-link="{path: '/order/'+ info.id + '/comment'}">
+                                去评论
                             </a>
                             <a class="order_btn comment_btn" v-if="info.status == 5" @click.prevent="buyAagin(info.id)">
                                 再次购买
@@ -81,7 +81,7 @@
                             <a class="order_btn" v-if="info.status == 6">
                                 已作废
                             </a>
-                            <a class="order_btn delet_btn" @click.prevent="deleteOrder(info.id)">
+                            <a class="order_btn delet_btn" @click.prevent="confirmDeleteOrder(info.id)">
                                 删除订单
                             </a>
                         </span>
@@ -94,19 +94,33 @@
     </li>
 </template>
 <script>
-    export default {
-        name: 'v-order-item',
-        props: ['info'],
-        data(){
-            return {
-            }
-        },
-        computed: {
-
-        },
-        components:{
+import { mapActions, mapGetters } from 'vuex'
+export default {
+    name: 'v-order-item',
+    props: ['info'],
+    data(){
+        return {
         }
+    },
+    methods: {
+        //确认删除订单
+        confirmDeleteOrder(orderId){
+            this.showConfirmDialog({
+              title: '确认删除订单? 删除后将无法恢复' ,
+              onConfirm: ()=>{
+                this.deleteOrder(orderId)
+              }
+            })
+        },
+
+        ...mapActions(['confirmReceipt', 'deleteOrder', 'showConfirmDialog'])
+    },
+    computed: {
+
+    },
+    components:{
     }
+}
 </script>
 
 

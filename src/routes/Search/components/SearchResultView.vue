@@ -92,7 +92,7 @@ export default {
     ...mapGetters(['searchResult', 'searchSuggestions', 'hotProducts'])
   },
   methods: {
-    ...mapActions(['getSearchResult', 'getSearchSuggestions', 'getHotProducts', 'showToast', 'addToCart']),
+    ...mapActions(['getSearchResult', 'getSearchSuggestions', 'getHotProducts', 'showToast', 'addToCart', 'changeMenu']),
     onSearch(data){
       router.go('/search/result?k='+data)
     },
@@ -113,6 +113,7 @@ export default {
         this.getSearchResult(this.$data.keyword).then(()=>{
           this.$data.loadingAsyncData = false; 
         })
+        this.changeMenu(1);
         this.$data.loadingAsyncData = false;
       }
   },

@@ -38,7 +38,7 @@ export default {
     ...mapGetters(['cates','searchHotWords', 'searchSuggestions', 'searchHistory'])
   },
   methods: {
-    ...mapActions(['getProductCates', 'getSearchHotWords', 'getSearchSuggestions', 'getSearchHistory', 'addSearchHistory', 'clearSearchHistory']),
+    ...mapActions(['getProductCates', 'getSearchHotWords', 'getSearchSuggestions', 'getSearchHistory', 'addSearchHistory', 'clearSearchHistory', 'changeMenu']),
     onSearch(data){
       this.addSearchHistory(data);
       router.go('/search/result?k='+data)
@@ -55,6 +55,7 @@ export default {
         // this.getSearchHotWords();
         this.getSearchHistory();
         this.getProductCates();
+        this.changeMenu(1);
         this.$data.loadingAsyncData = false;
       }
   },
