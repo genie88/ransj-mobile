@@ -51,27 +51,32 @@ export default {
                 index: 0,
                 current: true,
                 name: '所有',
-                link: '/user/order'
+                link: '/user/order/status/1'
             },{
                 index: 1,
                 name: '待付款',
-                link: '/user/order/status/2'
+                link: '/user/order/status/2',
+                current: false,
             },{
                 index: 2,
                 name: '待收货',
+                current: false,
                 link: '/user/order/status/3'
             }
             ,{
                 index: 3,
                 name: '待评论',
+                current: false,
                 link: '/user/order/status/4'
             },{
                 index: 4,
                 name: '已完成',
+                current: false,
                 link: '/user/order/status/5'
             },{
                 index: 5,
                 name: '已作废',
+                current: false,
                 link: '/user/order/status/6'
             }
             ]
@@ -95,8 +100,7 @@ export default {
             //确定待显示的订单的类别
             if(!isNaN(status)){
                 this.$data.tabs.forEach((item) => item.current = false);
-                // console.log(this.$data.tabs, status)
-                this.$data.tabs[status].current = true;
+                this.$data.tabs[status - 1].current = true;
                 this.$data.status = status;
                 this.getMyOrderInfo({status: status});
             } else {

@@ -26,7 +26,6 @@
         },
         watch: {
             'tabs': function(newval, oldval) {
-                
             }
         },
         components:{

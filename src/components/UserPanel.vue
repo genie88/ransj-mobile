@@ -46,23 +46,23 @@
     <div class="user_li ">
         <ul>
             <li>
-                <a v-link="{path: '/user/order'}">
+                <a v-link="{path: '/user/order/status/1'}">
                     <img src="../static/img/minePageicon012x.png"><p>我的订单</p>
                 </a>
             </li>
             <li>
-                <a v-link="{path: '/user/order/status/1'}">
+                <a v-link="{path: '/user/order/status/2'}">
                     <img src="../static/img/minePageicon022x.png"> 
                     <p>待付款</p>
                 </a>
             </li>
             <li>
-                <a v-link="{path: '/user/order/status/2'}">
+                <a v-link="{path: '/user/order/status/3'}">
                     <img src="../static/img/minePageicon032x.png"><p>待收货</p>
                 </a>
             </li>
             <li>
-                <a v-link="{path: '/user/order/status/3'}">
+                <a v-link="{path: '/user/order/status/4'}">
                     <img src="../static/img/minePageicon042x.png">
                     <p>待评价</p>
                 </a>
