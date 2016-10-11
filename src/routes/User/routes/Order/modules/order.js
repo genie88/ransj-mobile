@@ -15,11 +15,15 @@ export const FAILURE_CONFIRM_RECEIPT = 'FAILURE_CONFIRM_RECEIPT';
 export const SUCCESS_DELETE_ORDER = 'SUCCESS_DELETE_ORDER';
 export const FAILURE_DELETE_ORDER = 'FAILURE_DELETE_ORDER';
 
+//获取订单详情
+export const SUCCESS_ORDER_DETAIL = 'SUCCESS_ORDER_DETAIL';
+export const FAILURE_ORDER_DETAIL = 'FAILURE_ORDER_DETAIL';
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
-  myOrderInfo: {}
+  myOrderInfo: {},
+  orderDetail: {},
 }
 
 
@@ -27,7 +31,8 @@ const state = {
 // Getters
 // ------------------------------------
 export const getters = {
-    myOrderInfo: state => state.myOrderInfo
+    myOrderInfo: state => state.myOrderInfo,
+    orderDetail: state => state.orderDetail,
 }
 
 
@@ -139,6 +144,76 @@ export const actions = {
         commit(FAILURE_CONFIRM_RECEIPT);
     }
   },
+
+
+
+  /**
+   *  获取订单详情
+   *  @param orderId  订单ID
+   */
+  async getOrderDetail({commit}, orderId){
+    try{
+      const res = await fetch(`http://ransj.com/order?order_id=${orderId}`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: ''
+      })
+      const json = await res.json();
+      console.log(json);
+      if(json && json.errno == 0 && json.data) {
+        commit(SUCCESS_ORDER_DETAIL, json.data);
+      } else {
+        if(json && json.errno == -2) {
+            router.go('/user/login');
+        }
+        commit(FAILURE_ORDER_DETAIL, json);
+      }
+      return json;
+    } catch (e) {
+        commit(FAILURE_ORDER_DETAIL);
+    }
+  },
+
+
+  /**
+   *  评论订单(评论订单中的所有商品)
+   *  @param data.orderId  订单ID
+   *  @param data.comment  订单评论内容
+   */
+  async commentOrder({commit}, data){
+    try{
+      const res = await fetch(`http://ransj.com/order/comment`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json();
+      console.log(json);
+      if(json && json.errno == 0 && json.data) {
+        // commit(SUCCESS_ORDER_COMMENT, json.data);
+      } else {
+        if(json && json.errno == -2) {
+            router.go('/user/login');
+        }
+        // commit(FAILURE_ORDER_COMMENT, json);
+      }
+      return json;
+    } catch (e) {
+        // commit(FAILURE_ORDER_COMMENT);
+    }
+  },
 }
 
 // ------------------------------------
@@ -167,6 +242,15 @@ export const mutations = {
   },
   [FAILURE_DELETE_ORDER](state, orderId){
 
+  },
+
+  // 获取订单详情
+  [SUCCESS_ORDER_DETAIL](state, order) {
+    state.orderDetail = order
+  },
+
+  [FAILURE_ORDER_DETAIL](state, order) {
+    state.orderDetail = null
   },
 }
 

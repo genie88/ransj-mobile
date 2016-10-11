@@ -26,6 +26,17 @@
             </p>
         </div>
     </div>
+
+    <!-- 全局底部浮层模块 -->
+    <div class="show_detail dn">
+    <div class="pop_bg"></div>
+    <div class="fund_info checkRule">
+        <p class="f14 fb txtc">活动规则</p>
+        <span class="close"></span>
+        <hr>
+        <div class="rule_height"><p><span class="f12 c_1e384b fl">满239元送价值30元有机五常稻花香米</span></p><p><span class="f12 c_afc1cb ml5 fl">活动期间，单笔订单实付金额满239元，送价值30元的有机五常稻花香米1包，每单限1份，赠品不叠加，数量有限，赠完即止。</span></p></div>
+    </div>
+</div>
     
 </template>
 <script>
