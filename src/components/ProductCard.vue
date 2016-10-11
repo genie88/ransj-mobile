@@ -17,7 +17,7 @@
         </span>
       </p>
       <!-- loveinred -->
-      <span class="lovein" :class="hasLiked? 'loveinred': ''" @click="onLikeClick(info.id)"></span>
+      <span class="lovein" :class="liked? 'loveinred': ''" @click="onLikeClick(info.id)"></span>
       <!-- loveanimate greytext -->
       <span class="fly_texts loveanimate greytext">已喜欢</span>
     </div>
@@ -56,27 +56,27 @@ import { mapActions, mapGetters } from 'vuex'
         props: ['info'],
         data(){
             return {
-                hasLiked: false
+                liked: false
             }
         },
         computed: {
 
         },
         methods: {
-            ...mapActions(['addToLike', 'dislike']),
+            ...mapActions(['addToLike', 'dislike', 'hasLiked']),
 
             //喜爱按钮点击事件
             onLikeClick(id){
                 //判断是否登录，未登录提示登录
-                if(!this.$data.hasLiked) {
+                if(!this.$data.liked) {
                     //如果没有喜欢过，则为添加到喜欢
                     this.addToLike(id).then((json) => {
-                        this.$data.hasLiked = true;
+                        this.$data.liked = true;
                     })
                 } else {
                     //如果已经喜欢过，则为取消喜欢
                     this.dislike(id).then((json) => {
-                        this.$data.hasLiked = false;
+                        this.$data.liked = false;
                     })
                 }
                 
@@ -106,6 +106,16 @@ import { mapActions, mapGetters } from 'vuex'
                         vScroll:false
                     });
                 }
+            },
+
+            'info': function(){
+                //判断用户是否已经喜欢过了
+                this.hasLiked(this.info.id).then( (json) => {
+                    console.log(json)
+                    if(json && json.errno == 0 && json.data && json.data.liked) {
+                        this.$data.liked = true;
+                    }
+                })
             }
         },
         ready(){

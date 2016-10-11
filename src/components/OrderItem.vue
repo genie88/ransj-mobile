@@ -72,7 +72,7 @@
                             <a class="order_btn confirm_btn" v-if="info.status == 3 && info.delivery_status == 1" @click.prevent="confirmReceipt(info.id)">
                                 确认收货
                             </a>
-                            <a class="order_btn comment_btn" v-if="info.status == 4" v-link="{path: '/order/'+ info.id + '/comment'}">
+                            <a class="order_btn comment_btn" v-if="info.status == 4" v-link="{path: '/user/order/'+ info.id + '/comment'}">
                                 去评论
                             </a>
                             <a class="order_btn comment_btn" v-if="info.status == 5" @click.prevent="buyAagin(info.id)">

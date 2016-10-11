@@ -4,6 +4,7 @@ const createRoutes = {
     '/order': require("./Order"),   // 我的订单
     '/like': require("./Like"),     // 我的喜欢
     '/order/status/:status': require("./Order"),
+    '/order/:orderId/comment': require("./Comment/add"), // 评论订单
     // '/like': require("./Like"),     // 我喜欢的 
     '/comment': require("./Comment"), // 评论
     '/card': require("./Card"),     // 充值卡 

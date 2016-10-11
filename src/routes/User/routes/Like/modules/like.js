@@ -93,6 +93,26 @@ export const actions = {
   },
 
 
+  //判断用户是否已经喜欢过了
+  async hasLiked({commit}, tid){
+    try {
+      const res = await fetch(`http://ransj.com/like/hasliked`, {
+        method: "POST",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({tid: tid})
+      })
+      const json = await res.json();
+      return json;
+    } catch (e) {}
+  },
+
+
   //从我的喜欢中移除
   async dislike({commit}, tid){
     try{
