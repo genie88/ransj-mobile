@@ -102,8 +102,13 @@ export const actions = {
         method: "POST",
         body: ''
       })
-      const comments = await res.json();
-      commit(SUCCESS_GET_PRODUCT_COMMENTS, comments);
+      const json = await res.json();
+      if(json && json.errno == 0 && json.data.count) {
+        commit(SUCCESS_GET_PRODUCT_COMMENTS, json.data);
+      } else {
+        commit(FAILURE_GET_PRODUCT_COMMENTS);
+      }
+      
     } catch(e){
       console.log(e)
       commit(FAILURE_GET_PRODUCT_COMMENTS);

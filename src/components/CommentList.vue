@@ -8,7 +8,7 @@
                 <img src="../static/img/touxiang.png"></span>
                 <span class="f13">{{comment.username}}</span>
                 <span class="order_time fr c_aaa f10">
-                    {{comment.create_time | formatTime}}
+                    {{comment.update_time | formatTime}}
                 </span>
             </p>
             <p class="mt5 mb5 c_999">{{comment.content}}</p>
