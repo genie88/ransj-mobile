@@ -29,12 +29,15 @@ export const FAILURE_UPDATE_PASSWORD = 'FAILURE_UPDATE_PASSWORD';
 export const SUCCESS_UPDATE_USER_PROFILE = 'SUCCESS_UPDATE_USER_PROFILE'; //更新用户个人资料
 export const FAILURE_UPDATE_USER_PROFILE = 'FAILURE_UPDATE_USER_PROFILE';
 
+export const SUCCESS_USER_COMMENTS = 'SUCCESS_USER_COMMENTS';  //用户评论
+export const FAILURE_USER_COMMENTS = 'FAILURE_USER_COMMENTS';
 
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
   userInfo: {},
+  userComments: [],
   addresses:[]
 }
 
@@ -44,7 +47,8 @@ const state = {
 // ------------------------------------
 export const getters = {
     userInfo: state => state.userInfo,
-    addresses: state => state.addresses
+    addresses: state => state.addresses,
+    userComments: state => state.userComments
 }
 
 
@@ -224,6 +228,33 @@ export const actions = {
     }
   },
 
+
+  // 获取用户的所有评论
+  async getUserComments({commit}, data){
+    try{
+      const res = await fetch(`http://ransj.com/comment/my`, {
+        method: "GET",
+        mode: 'cors',
+        credentials: 'include',  // ['cors', include', 'same-origin']
+        headers: {
+          'Accept': 'application/json',
+          'x-requested-with': 'XMLHttpRequest',
+          'Content-Type': 'application/json'
+        }
+      })
+      const json = await res.json();
+      console.log(json)
+      if(json && json.errno == 0) {
+        commit(SUCCESS_USER_COMMENTS, json.data);
+        return json;
+      } else {
+        commit(FAILURE_USER_COMMENTS, json);
+      }
+    } catch (e) {
+        commit(FAILURE_USER_COMMENTS);
+    }
+  },
+
   async logout({commit}) {
     const res = await fetch(`http://ransj.com/user/logout`, {
       method: "POST",
@@ -303,6 +334,15 @@ export const mutations = {
 
   [FAILURE_UPDATE_PASSWORD] (state, data){
     
+  },
+
+  //查询用户所有评论
+  [SUCCESS_USER_COMMENTS] (state, data){
+    state.userComments = data;
+  },
+
+  [FAILURE_USER_COMMENTS] (state, data){
+    state.userComments = [];
   },
 
 }
