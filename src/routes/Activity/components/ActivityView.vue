@@ -9,7 +9,7 @@
 
     <div class="height45"></div>
 
-    <div class="scroll_nav" id="wrapper">
+    <!-- <div class="scroll_nav" id="wrapper">
         <ul class="scroll-c">
             <li class="on"><a href="#youhuiq">优惠券</a></li>
             <li><a href="#zhuanti">专题</a></li>
@@ -18,7 +18,7 @@
             <li><a href="#youhui">优惠</a></li>
             <li><a href="#yushou">预售</a></li>
         </ul>
-    </div>
+    </div> -->
 
     <section class="scroll-box" style="height:1000px;;">
     <div class="scroll">
