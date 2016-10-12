@@ -29,7 +29,9 @@
                     <span class="average_stars">
                         <span class="avstar redstar" style="width: 100%;"></span>
                     </span>
-                    <!-- <span class="go_comment fr replay">删除</span> -->
+                    <span class="go_comment fr replay"> 
+                        <a v-link="{path: '/user/order/' + comment.oid}" style="color:#fff;">查看订单</a> 
+                    </span>
                 </p>  
                 </div>
                 <hr>

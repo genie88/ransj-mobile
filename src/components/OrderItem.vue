@@ -1,6 +1,6 @@
 <template>
     <li class="wd94 m0 pt15">
-        <div class="myorder_loop">
+        <div class="myorder_loop" v-link="{path: '/user/order/' + info.id}">
             <p>
                 <span class="mr5 f12 fb">
                     订单号
