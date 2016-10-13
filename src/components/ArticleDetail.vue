@@ -89,7 +89,7 @@ export default {
 #article-content img{
     width: 100% !important;
 }
-#article-content p,span{
+#article-content p, #article-content span{
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 14px !important;
