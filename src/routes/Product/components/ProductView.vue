@@ -37,9 +37,19 @@
         </div>
       </div>
       <div class="pro_tab_con pb40" v-if="showComment"> 
-        <div class="pro_comment mt20" id="tags">
-        </div>
-        <v-comment-list :comments="productComments"></v-comment-list>
+        <template v-if="productComments && productComments.length">
+          <div class="pro_comment mt20" id="tags"></div>
+          <v-comment-list :comments="productComments"></v-comment-list>
+        </template>
+
+        <template v-if="!productComments || !productComments.length">
+          <!-- 没有评论过 -->
+          <div class="no_comments wd90 m0" style="min-height: 600px;">
+              <img src="/img/mycard/comment.png" style="margin: 3rem auto;">
+              <p class="mt30 c_b0c2cc">还没有点评，抢沙发</p>
+          </div>
+        </template>
+        
       </div>
     </section>
 

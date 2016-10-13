@@ -7,52 +7,16 @@
                     <a class="pic" href="javascript:void(0);">
                         <img :src="pic"/>
                     </a>
-                </li>
-                <!-- <li >
-                    <a class="pic" href="javascript:void(0);">
-                        <img src="http://www.yimishiji.com//public/images/ff/5c/66/72d9a66c7f805ba5f047630dede95f431d3f95cf.jpg"/>
-                    </a>
-                    <div class="tit">
+                    <div class="tit" v-if="$index == 0">
                         <div class="standard">
                             <ul>
-                                <li>
-                                    <p>
-                                        {{info.specification}}
-                                    </p>
-                                    <p>
-                                        规格
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        {{info.storage_condition}}
-                                    </p>
-                                    <p>
-                                        保存方式
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        {{info.durability}}天
-                                    </p>
-                                    <p>
-                                        保质期
-                                    </p>
-                                </li>
+                                <li> <p> {{info.specification}} 111</p> <p> 规格 </p> </li> 
+                                <li> <p> {{info.storage_condition}} </p> <p> 保存方式 </p> </li>
+                                <li> <p> {{info.durability}}天 </p> <p> 保质期 </p> </li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li>
-                    <a class="pic" href="javascript:void(0);">
-                        <img src="http://www.yimishiji.com//public/images/db/0d/a1/f8d5dd707d9b1a04c230c0b8453f95a1550b1612.jpg"/>
-                    </a>
-                </li>
-                <li>
-                    <a class="pic" href="javascript:void(0);">
-                        <img src="http://www.yimishiji.com//public/images/81/f9/d8/6a7b7bcfadf2f9789cef9e9056df1b503eebd87b.jpg"/>
-                    </a>
-                </li> -->
             </ul>
         </div>
       </div>

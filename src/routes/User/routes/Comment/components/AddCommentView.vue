@@ -32,7 +32,7 @@
                     <div class="" v-for="good in orderDetail.goods">
                         <p>
                             <a v-link="{path: '/product/' + good.goods_id}" style="height: 60px;line-height: 60px;">
-                                <img :src="good.pic"/ title="{{good.title}}" width="60" height="60" style="border-radius: 20px;max-width: 60px;float:left;">
+                                <img :src="good.pic" title="{{good.title}}" width="60" height="60" style="border-radius: 20px;max-width: 60px;float:left;">
                                 <span class="" style="margin-left: 20px;">{{good.title}}</span>
                                 <span class="order_time fr f10 c_1e384b">
                                     ￥{{good.goods_price}} x {{good.goods_nums}}件

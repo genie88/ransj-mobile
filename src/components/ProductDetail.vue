@@ -5,7 +5,7 @@
                   <p></p><span>尝过这一味</span><p></p>
             </div>
         </div> 
-        <div class="detail_info">
+        <div class="detail_info {{isexpand ? 'expand' : ''}}">
             {{{info.content[0]}}}
         </div>
         <!-- 
@@ -26,10 +26,10 @@
     </div>
 
     <!-- 展开查看更多 -->
-    <div class="updown_more up">
-        <p id="moreall">点击收起更多</p>
-        <p><span class="updowns_arrow on"></span></p>
-    </div>
+   <!--  <div class="updown_more up"  @click="toggle()">
+        <p id="moreall">{{isexpand ? '点击收起更多' : '展开查看更多'}}</p>
+        <p><span class="updowns_arrow {{isexpand ? 'on' : ''}}"></span></p>
+    </div> -->
 </template>
 
 <style>
@@ -47,6 +47,16 @@
         margin-bottom: 10px;
         font-size: 15px;
     }
+
+    /*.detail_info {
+        overflow: hidden;
+        max-height: 400px;
+    }
+
+    .detail_info.expand {
+        height: auto;
+        max-height: 100000px;
+    }*/
 </style>
 
 <script>    
@@ -55,6 +65,12 @@
         props: ['info'],
         data(){
             return {
+                isexpand: false
+            }
+        },
+        methods: {
+            toggle(){
+                this.$data.isexpand = !this.$data.isexpand;
             }
         },
         components:{

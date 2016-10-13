@@ -22,7 +22,7 @@
             showContact(){
                 this.showBottomDialog({
                     title: '联系客服',
-                    subTitle: '扫描二维码添加微信专属客服更方便   电话客服: 18073181682',
+                    subTitle: '扫描二维码添加微信专属客服更方便',
                     content: `<img src="http://i1.hunantv.com/ui/2015/images/code.jpg"/>`
                 })
             }
