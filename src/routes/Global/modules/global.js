@@ -14,11 +14,15 @@ export const HIDE_TOAST = 'HIDE_TOAST';
 export const SHOW_CONFIRM_DIALOG = 'SHOW_CONFIRM_DIALOG';
 export const HIDE_CONFIRM_DIALOG = 'HIDE_CONFIRM_DIALOG';
 
+export const SHOW_BOTTOM_DIALOG = 'SHOW_BOTTOM_DIALOG';
+export const HIDE_BOTTOM_DIALOG = 'HIDE_BOTTOM_DIALOG';
+
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
     globalComfirmDialog: null,
+    globalBottomDialog: null,
     tips: false,
     menus: [{
       current: true,
@@ -50,7 +54,8 @@ const state = {
 export const getters = {
   footerMenus: state => state.menus,
   globalTips: state => state.tips,
-  globalComfirmDialog: state => state.globalComfirmDialog
+  globalComfirmDialog: state => state.globalComfirmDialog,
+  globalBottomDialog: state => state.globalBottomDialog
 }
 
 // ------------------------------------
@@ -64,6 +69,7 @@ export const actions = {
     }, 1000)
   },
 
+  //显示和隐藏确认弹窗
   showConfirmDialog ({ commit }, data) {
     commit(SHOW_CONFIRM_DIALOG, data);
   },
@@ -72,6 +78,17 @@ export const actions = {
     commit(HIDE_CONFIRM_DIALOG, data);
   },
 
+  //显示和隐藏底部浮层
+  showBottomDialog ({commit}, data) {
+    commit(SHOW_BOTTOM_DIALOG, data)
+  },
+
+  hideBottomDialog ({commit}, data) {
+    commit(HIDE_BOTTOM_DIALOG, data)
+  },
+
+
+  // 更新徽标
   updateBadge({ commit }, badge){
     commit(UPDATE_BADGE, badge);
   },
@@ -115,6 +132,15 @@ export const mutations = {
   [HIDE_CONFIRM_DIALOG] (state){
     state.globalComfirmDialog = null;
   },
+
+  // 全局底部浮层
+  [SHOW_BOTTOM_DIALOG] (state, data){
+    state.globalBottomDialog = data;
+  },
+
+  [HIDE_BOTTOM_DIALOG] (state, data) {
+    state.globalBottomDialog = null;
+  }
 }
 
 export default {

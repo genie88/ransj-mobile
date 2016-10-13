@@ -3,7 +3,7 @@
 	<header class="homePage">
 	    <span class='logo'></span>
 	    <p id="title" class="menu">{{title}}<i class="arrow"></i></p>
-	    <span id="search" class="search-box" onclick="window.open('#!/search','_self')"></span>
+	    <span id="search" class="search-box" v-link="{path: '/search'}"></span>
 	</header>
 </template>
 
@@ -24,9 +24,6 @@
 		},
 		ready(){
 			$('.menu').on('click', function () {
-		        if ($("#classify .swiper-wrapper .swiper-slide").size() <= 1) {
-		            cateShow();
-		        }
 		        $('#classify-box').slideToggle();
 		        $(this).find("i").toggleClass('arrow2');
 		    });

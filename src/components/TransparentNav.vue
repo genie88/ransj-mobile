@@ -3,17 +3,28 @@
         <a class=" fl" href="javascript:history.go(-1);">
             <span class="arrow"></span>
         </a>
-        <a class="gokefu fr mr5" href="javascript:void(0)">
+        <a class="gokefu fr mr5" @click.prevent="showContact">
             <img src="../static/img/user_icon/service2x.png">
         </a>
     </div>
 </template>
 
 <script>    
+    import { mapActions, mapGetters } from 'vuex'
     export default {
         name: 'v-transparent-nav',
         data(){
             return {
+            }
+        },
+        methods: {
+            ...mapActions(['showBottomDialog']),
+            showContact(){
+                this.showBottomDialog({
+                    title: '联系客服',
+                    subTitle: '扫描二维码添加微信专属客服更方便   电话客服: 18073181682',
+                    content: `<img src="http://i1.hunantv.com/ui/2015/images/code.jpg"/>`
+                })
             }
         },
         components:{
