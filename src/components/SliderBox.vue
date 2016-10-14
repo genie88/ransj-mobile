@@ -10,7 +10,7 @@
                     <div class="tit" v-if="$index == 0">
                         <div class="standard">
                             <ul>
-                                <li> <p> {{info.specification}} 111</p> <p> 规格 </p> </li> 
+                                <li> <p> {{info.specification || "暂无"}}</p> <p> 规格 </p> </li> 
                                 <li> <p> {{info.storage_condition}} </p> <p> 保存方式 </p> </li>
                                 <li> <p> {{info.durability}}天 </p> <p> 保质期 </p> </li>
                             </ul>
