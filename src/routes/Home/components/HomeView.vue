@@ -5,16 +5,25 @@
   <v-ad-slider :list="hotArticles.data"></v-ad-slider>
 
   <!-- 好物主打 -->
-  <v-floor-image-header  :link="''"
+  <!-- <v-floor-image-header  :link="''"
     :image="'/images/headers/good.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list>
+  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list> -->
+
+  <!-- 四时蔬菜 -->
+  <v-floor-image-header  :link="''"
+    :image="'/images/headers/vege.jpg'">  
+  </v-floor-image-header>
+  <v-home-good-list :list="productsByCates.cate109" v-on:addToCart="addToCartClick"></v-home-good-list>
+  
 
   <!-- 肉禽蛋类 -->
   <v-floor-image-header  :link="''"
     :image="'/images/headers/meat.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list>
+  <v-home-good-list :list="productsByCates.cate110" v-on:addToCart="addToCartClick"></v-home-good-list>
+
+  
 
   <!-- 联系方式 -->
   <div class="info-box">
@@ -41,12 +50,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['homeSlider', 'cates', 'hotProducts', 
+    ...mapGetters(['homeSlider', 'cates', 'hotProducts', 'productsByCates',
       'newProducts', 'hotArticles'])
   },
   methods: {
     ...mapActions(['getProductCates', 'getHomeSliders', 'getHotArticles', 
-      'getHotProducts', 'getNewProducts', 'addToCart', 'showToast', 'changeMenu']),
+      'getProductsByCate', 'getHotProducts', 'getNewProducts', 'addToCart', 
+      'showToast', 'changeMenu']),
     addToCartClick(data){
       this.addToCart(data);
       this.showToast({tips: data.title});
@@ -57,15 +67,12 @@ export default {
         this.getProductCates();
         this.getHotArticles();
         this.getHotProducts();
-        this.showToast({tips: '欢迎回来'});
+        this.getProductsByCate(110);
+        this.getProductsByCate(109);
+        // this.showToast({tips: '欢迎回来'});
         this.changeMenu(0);
         this.$data.loadingAsyncData = false;
       }
-  },
-  watch: {
-    'cates': (newval, oldval)=> {
-
-    }
   },
   components:{
     vHeader,

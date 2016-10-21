@@ -11,12 +11,19 @@ export const SUCCESS_PRODUCT_HOTS = 'SUCCESS_PRODUCT_HOTS';
 export const SUCCESS_PRODUCT_NEW = 'SUCCESS_PRODUCT_NEW';
 export const SUCCESS_ARTICLE_HOT = 'SUCCESS_ARTICLE_HOT';
 
+export const SUCCESS_PRODUCT_BY_CATES = 'SUCCESS_PRODUCT_BY_CATES';
+
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
     slider: [],     // 首页幻灯片信息
     cates: [],      // 商品分类
+    productsByCates: {
+      cate110: [],
+      cate109: [],
+      cate120: [],
+    },// 分类商品
     hotProducts: [],   // 热门商品
     newProducts: [],   // 新到尖货
     hotArticles: []    // 热门文章
@@ -28,6 +35,7 @@ const state = {
 export const getters = {
   homeSlider: state => state.slider,
   cates: state => state.cates,
+  productsByCates: state => state.productsByCates,
   hotProducts: state => state.hotProducts,
   newProducts: state => state.newProducts,
   hotArticles: state => state.hotArticles
@@ -119,6 +127,27 @@ export const actions = {
   },
 
 
+  //获取分类商品
+  async getProductsByCate ({ commit }, cate) {
+    const res = await fetch(`http://ransj.com/topic/list?category=${cate}-1`, {
+      method: "POST",
+      mode: 'cors',
+      credentials: 'include',  // ['cors', include', 'same-origin']
+      headers: {
+        'Accept': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      body: ''
+    })
+    const json = await res.json();
+    // console.log(json);
+    if(json && json.data) {
+      commit(SUCCESS_PRODUCT_BY_CATES, {cate: cate, data: json.data})
+    }
+  },
+
+
   //获取最新商品
   async getNewProducts ({ commit }, data) {
     const res = await fetch(`http://ransj.com/cart/addcart`, {
@@ -165,6 +194,12 @@ export const mutations = {
 
   [SUCCESS_ARTICLE_HOT] (state, data){
     state.hotArticles = data;
+  },
+
+
+  [SUCCESS_PRODUCT_BY_CATES] (state, payload) {
+    // console.log(payload.cate, payload.data)
+    state.productsByCates['cate'+ payload.cate] = payload.data;
   },
 }
 
