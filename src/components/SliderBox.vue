@@ -1,9 +1,9 @@
 <template>
     <div id="slideBox" class="slideBox">      
-      <div class="bd">
+      <div class="bd swiper-container floor-slide swiper-container-horizontal swiper-container-free-mode">
         <div class="tempWrap" style="overflow:hidden; position:relative;">
-            <ul>
-                <li v-for="pic in info.pictures">
+            <ul class="swiper-wrapper">
+                <li v-for="pic in info.pictures" class="swiper-slide">
                     <a class="pic" href="javascript:void(0);">
                         <img :src="pic"/>
                     </a>
@@ -39,14 +39,21 @@
         },
         watch: {
             'info.pictures': () => {
-                TouchSlide({
-                    slideCell:"#slideBox",
-                    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-                    mainCell:".bd ul",
-                    effect:"leftLoop",
-                    autoPage:true,//自动分页
-                    autoPlay:true //自动播放
+                new Swiper('#slideBox', {
+                    loop: true,
+                    autoplay: 3000,
+                    pagination: '.swiper-pagination',
+                    paginationClickable: true,
+                    autoplayDisableOnInteraction: false
                 });
+                // TouchSlide({
+                //     slideCell:"#slideBox",
+                //     titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                //     mainCell:".bd ul",
+                //     effect:"leftLoop",
+                //     autoPage:true,//自动分页
+                //     autoPlay:true //自动播放
+                // });
             }
         },
         ready(){

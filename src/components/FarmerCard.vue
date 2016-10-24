@@ -6,7 +6,7 @@
     </div>
 
     <div class="txtc" id="farmer_detail">
-        <p><img src="{{info.farmer.cover_id}}"></p>
+        <p><img src="{{info.farmer.cover_image}}"></p>
         <p class="mt15 fb">{{info.farmer.title}}</p>
         <p class="c_afc1cb mt10">{{info.farmer.location}}</p>
         <p class="c_b0c2cc mb20"></p>
