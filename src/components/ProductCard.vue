@@ -32,14 +32,14 @@
     <div class="pro_tag">
       <div class="pro_tag_list" id="wrapper" style="overflow: hidden;">
         <ul class="scrolls" style="width: 368px; transform-origin: 0px 0px 0px; position: absolute; top: 0px; left: 0px;">
-            <li>
+            <li v-if="info.ca !== undefined">
                 <a href="http://www.yimishiji.com/public/files/detection_report/a907948c6db509e82731749c191bed94.pdf">
-                <img src="../static/images/report/badge_sgs.png">
+                <img :src="'/tags/badge_'+ info.ca +'.png'">
                 </a>
             </li>
             <li v-for="tag in info.tags">
                 <a href="javascript:void(0);">
-                    <img src="../static/images/report/wujishu.png">
+                    <img :src="'/tags/' + tag.id + '.png'">
                     <p>{{tag.name}}</p>
                 </a>
             </li>
