@@ -1,7 +1,6 @@
 <template>
     <div id="slideBox" class="slideBox">      
-      <div class="bd swiper-container floor-slide swiper-container-horizontal swiper-container-free-mode">
-        <div class="tempWrap" style="overflow:hidden; position:relative;">
+        <div class="bd swiper-container swiper-container-horizontal swiper-container-free-mode">
             <ul class="swiper-wrapper">
                 <li v-for="pic in info.pictures" class="swiper-slide">
                     <a class="pic" href="javascript:void(0);">
@@ -19,11 +18,10 @@
                 </li>
             </ul>
         </div>
-      </div>
 
-      <div class="hd">
-        <ul></ul>
-      </div>
+        <div class="hd">
+            <ul></ul>
+        </div>
     </div>
 </template>
 
@@ -39,11 +37,12 @@
         },
         watch: {
             'info.pictures': () => {
-                new Swiper('#slideBox', {
+                new Swiper('#slideBox .swiper-container', {
                     loop: true,
                     autoplay: 3000,
-                    pagination: '.swiper-pagination',
+                    pagination: '.hd ul',
                     paginationClickable: true,
+                    paginationElement: 'li',
                     autoplayDisableOnInteraction: false
                 });
                 // TouchSlide({

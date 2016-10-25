@@ -21,7 +21,7 @@
                                    {{item.title}}
                                 </span>
                             </a>
-                            <span class="sub-title clamp-one">
+                            <span class="sub-title clamp-one">  
                                 {{item.farm}}&nbsp;{{item.specs}}
                             </span>
                             <p class="price">
