@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li v-for="tag in info.tags">
-                <a href="javascript:void(0);">
+                <a v-link="{path: '/tag/'+ tag.id}">
                     <img :src="'/tags/' + tag.id + '.png'">
                     <p>{{tag.name}}</p>
                 </a>
@@ -91,10 +91,9 @@ import { mapActions, mapGetters } from 'vuex'
             'info.tags': function() {
                 var iscrollWidth;
                 var liLength = $(".pro_tag_list ul li").length;
-                var liWidth = $(".pro_tag_list ul li").width();  
+                var liWidth = 85; //$(".pro_tag_list ul li").width();  
                 var divWidth = $(".pro_tag_list").width();
                 var ulWidth = liWidth*liLength + (liLength - 1)*5;  
-                
                 if(ulWidth<=divWidth){
                     $(".pro_tag_list ul").addClass("pul").css("width",ulWidth);
                 } else {

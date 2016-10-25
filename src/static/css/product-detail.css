@@ -12,7 +12,7 @@ span{
 .slideBox .hd{width:100%;position:absolute;z-index:1;bottom:1rem;text-align:center; }
 .slideBox .hd ul{ display:inline-block;  font-size:0; }
 .slideBox .hd ul li{ display:inline-block; width:10px; height:10px; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; background:rgba(255,255,255,.6); margin:0 5px; overflow:hidden; box-shadow: 0 1px 7px rgba(59,36,17,0.25)  }
-.slideBox .hd ul .on{ background:#fff;  }
+.slideBox .hd ul .swiper-pagination-bullet-active{ background:#fff;  }
 .slideBox .bd{ position:relative; z-index:0; }
 .slideBox .bd li{ position:relative; text-align:center;  }
 .slideBox .bd li img{ background:url(http://m.yimishiji.com/mine_2.0/css/img/icon/loading.gif) center center no-repeat;  vertical-align:top; width:100%;/* 图片宽度100%，达到自适应效果 */}

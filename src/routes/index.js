@@ -10,6 +10,7 @@ const createRoutes = {
         '/search': require("./Search"),
         '/search/result': require("./Search/result"),
         '/article/:id': require("./Article"),
+        '/tag/:id': require("./Tag"),
         '/casher': require("./Casher"),
         '/casher/pay/order/:id': require("./Casher/pay"),
         '/casher/payres': require("./Casher/payres"),
