@@ -6,6 +6,8 @@ import VueValidator from 'vue-validator'
 import App from 'App'
 import { routes, alias }  from './routes'
 import a from './utils/filter'
+import paramUtil from './utils/paramUtil'
+import Cookie from './utils/cookie'
 
 
 promise.polyfill();
@@ -38,11 +40,34 @@ router.map(routes)
 router.alias(alias)
 
 //全局钩子函数
+let authChecked = false;
 router.beforeEach(transition => {
-	if (transition.to.auth) {
-		// 对用户身份进行验证...
-		// transition.abort()
-		transition.next()
+	//Util.isWexin() && !authChecked
+	let code = paramUtil.get('code') || '';
+	if(code && !authChecked) {
+		try{
+			// 一定需要用POST方式，GET方式会生成新的session? 导致登录失败，奇怪的问题
+			fetch(`http://ransj.com/wechat/getopenid?code=${code}`, {
+				method: "POST",
+				body: '',
+				credentials: 'include',
+			})
+			.then((res)=>{
+				return res.json();
+			})
+			.then((json)=> {
+				authChecked = true;
+				// trick cookie
+				// let session = json.data.session.thinkjs || {};
+				// Cookie.set(session.name, session.value, 24, 'ransj.com');
+				window.history.pushState({},'然生记','http://m.ransj.com');
+				transition.next();
+			})
+		} catch(e) {
+			transition.next();
+		}
+		
+	    
 	} else {
 		transition.next()
 	}
