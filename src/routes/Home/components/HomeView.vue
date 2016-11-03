@@ -59,7 +59,7 @@ export default {
       'showToast', 'changeMenu']),
     addToCartClick(data){
       this.addToCart(data);
-      this.showToast({tips: data.title});
+      this.showToast({tips: '添加 ' + data.title});
     }
   },
   route: {

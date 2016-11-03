@@ -218,7 +218,7 @@
             </p>
             <div class="floor-con">
                 <div class="floor">
-                    <v-good-slider :list="productViewHistory"></v-good-slider>
+                    <v-good-slider :list="productViewHistory" v-on:addtocart="addToCartClick"></v-good-slider>
                 </div>
             </div>
         </div>
@@ -288,7 +288,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout', 'getProductViewHistory', 'addToLike', 'changeMenu']),
+        ...mapActions(['getCartInfo', 'updateCartItem', 'checkout', 'getProductViewHistory', 'addToLike', 'changeMenu', 'addToCart', 'showToast']),
 
         //调整购物车数量
         decrease(id){
@@ -318,6 +318,12 @@ export default {
             }
             console.log(ids);
             this.checkout(ids)
+        },
+
+        //浏览记录添加到购物车
+        addToCartClick(data){
+          this.addToCart(data);
+          this.showToast({tips: '添加 ' + data.title});
         }
     },
     route: {

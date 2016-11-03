@@ -165,7 +165,7 @@
                 添加收货地址
             </a>
         </div>
-        <div class="user_address_items" v-for="addr in addresses">
+        <div class="user_address_items" v-for="addr in addresses" :class="addr.is_default ? 'default_address': ''">
             <div class="user_address">
                 <div class="address_info">
                     <div class="name f14">
@@ -183,12 +183,17 @@
                 </div>
             </div>
             <div class="new_addr_btn">
-                <div class="f14 fl" @click.prevent="setDefaultAddress(addr.id)">
+                <div class="f14 fl" @click.prevent="setDefaultAddress(addr.id)" v-if="!addr.is_default">
                     <label>
-                        <input checked="true" class="addr_default mr5" 
-                            name="default" type="radio"/>
-                            设为默认
-                        </input>
+                        设为默认
+                    </label>
+                </div>
+                <div class="f14 fl" v-if="addr.is_default">
+                    <label style="color:#ee9b84;">
+                        <input checked="true" class="addr_default mr5"
+                             name="default" type="radio"/>
+                             默认地址
+                         </input>
                     </label>
                 </div>
                 <div class="del_adress f14" @click.prevent="confirmDeleteAddress(addr.id)">
@@ -237,7 +242,7 @@ export default {
         ...mapGetters(['userInfo', 'addresses'])
     },
     methods: {
-        ...mapActions(['getUserInfo', 'saveUserInfo', 'showToast', 'showConfirmDialog', 'getReceiptAdress', 'delReceiptAdress', 'updatePassword', 'updateUserProfile']),
+        ...mapActions(['getUserInfo', 'saveUserInfo', 'showToast', 'showConfirmDialog', 'getReceiptAdress', 'delReceiptAdress', 'updateReceiptAdress', 'updatePassword', 'updateUserProfile']),
         //tab切换
         onTabChange(index){
             this.$data.showTab = index;
@@ -283,6 +288,11 @@ export default {
         //编辑按钮
         editAddress(id){
             router.go(`/user/address/edit/${id}`)
+        },
+
+        //设置为默认地址
+        setDefaultAddress(id){
+            this.updateReceiptAdress({id: id, is_default: 1, action: 'SET_DEFAULT'})
         },
 
         //删除收货地址

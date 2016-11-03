@@ -88,6 +88,8 @@ export const actions = {
 
   // 添加/更新/设为默认 收货地址 updateReceiptAdress
   async updateReceiptAdress({commit}, addr){
+    let action = addr.action; //SET_DEFAULT
+    delete addr.action;
     try{
       const res = await fetch(`http://ransj.com/cart/addaddr`, {
         method: "POST",
@@ -101,9 +103,9 @@ export const actions = {
         body: JSON.stringify(addr)
       })
       const json = await res.json();
-      console.log(json);
+      json.data.action = action;
       if(json && json.errno == 0) {
-        commit(SUCCESS_UPDATE_ADDRESS, json);
+        commit(SUCCESS_UPDATE_ADDRESS, json.data);
         return json;
       } else {
         if(json && json.errno == -2) {
@@ -300,6 +302,15 @@ export const mutations = {
   [SUCCESS_UPDATE_ADDRESS](state, data){
     //如果是新增地址，增加到地址列表
     //如果是修改地址，更新到地址列表
+    if(data.action == 'SET_DEFAULT' && data.address) {
+      for(var i=0; i<state.addresses.length; i++) {
+        if(state.addresses[i].id == data.address.id) {
+          state.addresses[i].is_default = 1
+        } else {
+          state.addresses[i].is_default = 0;
+        }
+      }
+    }
   },
 
   [SUCCESS_DELETE_ADDRESS](state, id){

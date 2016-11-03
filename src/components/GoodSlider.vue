@@ -7,11 +7,11 @@
                         <div class="goods-pic">
                             <a v-link="{path: '/product/' + item.id}">
                                 <img :src="item.image+ '?imageView2/1/w/135/h/135'" style="border-radius:50px;">
-                                <i class="new-label"></i>
+                                <!-- <i class="new-label"></i> -->
                             </a>
                             <div class="addto-cart">
                                 <div class="turn">
-                                    <span class="add-btn"></span>
+                                    <span class="add-btn" @click="addToCart(item.id, 1, item.title)"></span>
                                 </div>
                             </div>
                         </div>
@@ -43,6 +43,11 @@
         props: ['list'],
         data(){
             return {
+            }
+        },
+        methods: {
+            addToCart(id, qty, title){
+                this.$dispatch('addtocart', {product_id: id, qty: qty, title: title})
             }
         },
         components:{ 

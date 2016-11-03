@@ -532,16 +532,15 @@ export default {
         ...mapGetters(['casherInfo', 'lastCheckout']),
     },
     methods: {
-        ...mapActions(['createOrder', 'checkout']),
+        ...mapActions(['createOrder', 'checkout', 'showToast']),
         submitOrder(){
-            // let formdata = new FormData();
-            // formdata.append('address', this.casherInfo.addrlist[0].id)
-            // formdata.append('payment', this.$data.payment);
-            // formdata.append('user_remark', this.$data.user_remark);
-            // formdata.append('goodslist', this.casherInfo.check_goods);
+            if(!this.casherInfo.addrlist || this.casherInfo.addrlist.length == 0) {
+                this.showToast({tips: '请先添加收货地址'})
+                return false;
+            }
 
             let formdata = { 
-              address: '32',
+              address: this.casherInfo.addrlist[0].id,
               name: '',
               mobile: '',
               addr: '',

@@ -8,9 +8,9 @@
             <span class="order_numb">
                 <textarea id="sporderid" class="sporderid" readonly="">{{orderDetail.order_no}}</textarea>
             </span>
-            <span onclick="copyUrl2()" class="txdun c_b0c2cc">复制</span>
+            <!-- <span onclick="copyUrl2()" class="txdun c_b0c2cc">复制</span>
             <span class="replicated">已复制</span>
-            <span class="fr mt5 c_ee9b84 f12">已取消</span>
+            <span class="fr mt5 c_ee9b84 f12">已取消</span> -->
         </div>
         <hr>
         <div class="wd90 m0">

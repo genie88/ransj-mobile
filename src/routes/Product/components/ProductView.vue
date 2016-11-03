@@ -26,12 +26,12 @@
           <v-farmer-card :info="productDetail" :farmergoods="farmerGoods.data"></v-farmer-card>
 
           <!-- 猜你喜欢 -->
-          <div class="floor-head pt30 mb20">
+          <!-- <div class="floor-head pt30 mb20">
             <div class="bold box box-center">
               <p></p><span>你可能会喜欢</span><p></p>
             </div>
           </div>
-          <v-good-slider></v-good-slider>
+          <v-good-slider></v-good-slider> -->
 
 
         </div>
@@ -87,8 +87,9 @@ export default {
     },
     beforeAddToCart(data) {
       this.addToCart({product_id: this.$data.id, qty: data.qty})
+      this.showToast({tips: '添加 ' + this.productDetail.title});
     },
-    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart', 'addProductViewHistory'])
+    ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart', 'addProductViewHistory', 'showToast'])
   },
   route: {
       data ({to}) {
