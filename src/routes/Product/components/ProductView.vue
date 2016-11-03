@@ -53,7 +53,7 @@
       </div>
     </section>
 
-    <v-add-to-cart @click="addToCart({product_id: id, qty: 1})"></v-add-to-cart>
+    <v-add-to-cart v-on:addtocart="beforeAddToCart" :max="productDetail.stock"></v-add-to-cart>
   </template> 
 </template>
 
@@ -84,6 +84,9 @@ export default {
   methods: {
     switchTab(){
       this.$data.showComment = !this.$data.showComment;
+    },
+    beforeAddToCart(data) {
+      this.addToCart({product_id: this.$data.id, qty: data.qty})
     },
     ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart', 'addProductViewHistory'])
   },

@@ -25,7 +25,7 @@
 <script>    
     export default {
         name: 'v-add-to-cart',
-        props: ['cart', 'info'],
+        props: ['cart', 'max'],
         data(){
             return {
               qty: '1'
@@ -40,12 +40,12 @@
           },
           increase(){
             this.$data.qty++;
-            if (this.$data.qty>info.stock) {
-              this.$data.qty = info.stock;
+            if (this.$data.qty> this.max) {
+              this.$data.qty = this.max;
             }
           },
           addToCart(){
-
+            this.$dispatch('addtocart', {qty: this.$data.qty})
           }
         },
         components:{
