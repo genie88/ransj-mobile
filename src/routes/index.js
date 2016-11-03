@@ -10,6 +10,7 @@ const createRoutes = {
         '/search': require("./Search"),
         '/search/result': require("./Search/result"),
         '/article/:id': require("./Article"),
+        '/tags': require("./Tag/list"),
         '/tag/:id': require("./Tag"),
         '/casher': require("./Casher"),
         '/casher/pay/order/:id': require("./Casher/pay"),
@@ -18,6 +19,7 @@ const createRoutes = {
         '/user': require("./User")
     },
     alias: {
+        '/choice': '/tags'
         // '/login/:username': '/login'
     }
 }
