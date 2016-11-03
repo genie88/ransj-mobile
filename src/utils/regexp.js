@@ -34,7 +34,7 @@ export default {
 	},
 	/*4位数字验证码*/
 	code (num) {
-		return /^\d{4}$/.test(num)
+		return /^\d{6}$/.test(num)
 	}
 
 }

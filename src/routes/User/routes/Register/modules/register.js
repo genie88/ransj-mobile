@@ -1,6 +1,7 @@
 
 import regexp from 'utils/regexp'
 import cookie from 'utils/cookie'
+import fetch from 'isomorphic-fetch'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -40,11 +41,11 @@ export const getters = {
 export const actions = {
   /*注册前验证*/
   initCheckRegister({commit}) {
-    commit(INIT_CHECK_REGISTER);
+    commit(INIT_CHECK_REGISTER);  
   },
 
   /*发送注册时的验证码*/
-  registerCode ({commit}, param) {
+  async registerCode ({commit}, param) {
     if(!regexp.mobile(param.username)){
         commit(CHECK_FAILURE_REGISTER, 'invaildMobile');
     }else{
@@ -57,19 +58,29 @@ export const actions = {
                 commit(CAN_GET_CODE)
             }
         }, 1000)
-        // api.post({
-        //     url: config.sendsmsUrl,
-        //     data: {
-        //         types: 'reg',
-        //         mobile: param.mobile
-        //     },
-        //     success (data) {}
-        // })
+
+        const res = await fetch(`http://ransj.com/public/verifycodesend`, {
+          method: "POST",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'x-requested-with': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({mobile: param.username, type: 1})
+        })
+        const json = await res.json();
+        // console.log(json);
+        if(json && json.errno == 0) {
+          
+        } else {
+          
+        }
     }
   },
 
   /*注册*/
-  userRegister ({commit}, param) {
+  async userRegister ({commit}, param) {
     if(!regexp.mobile(param.username)){
         commit(CHECK_FAILURE_REGISTER, 'invaildMobile');
     }else if(!regexp.password(param.password)){
@@ -89,19 +100,23 @@ export const actions = {
             paramObj.openId = cookie.get('openId')
         }
         router.go({path: '/user/my'})
-        // api.post({
-        //     url: config.registerUrl,
-        //     data: paramObj,
-        //     success (data) {
-        //         cookie.set('session', data.data[0].sessionId, 1)
-        //         dialog.alert({
-        //             content: data.ret_msg,
-        //             callback () {
-        //                 router.go({path: '/app/user'})
-        //             }
-        //         })
-        //     }
-        // })
+        const res = await fetch(`http://ransj.com/public/smsreg`, {
+          method: "POST",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'x-requested-with': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({mobile: param.username, sms_type: 1, verifycode: param.code, password: param.password})
+        })
+        const json = await res.json();
+        // console.log(json);
+        if(json && json.errno == 0) {
+          
+        } else {
+          
+        }
     }
   }
 
