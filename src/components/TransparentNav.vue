@@ -20,11 +20,12 @@
         methods: {
             ...mapActions(['showBottomDialog']),
             showContact(){
-                this.showBottomDialog({
-                    title: '联系客服',
-                    subTitle: '扫描二维码添加微信专属客服更方便',
-                    content: `<img src="http://i1.hunantv.com/ui/2015/images/code.jpg"/>`
-                })
+                window.open('https://static.meiqia.com/dist/standalone.html?eid=39225')
+                // this.showBottomDialog({
+                //     title: '联系客服',
+                //     subTitle: '扫描二维码添加微信专属客服更方便',
+                //     content: `<img src="http://i1.hunantv.com/ui/2015/images/code.jpg"/>`
+                // })
             }
         },
         components:{
