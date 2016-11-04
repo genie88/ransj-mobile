@@ -2341,6 +2341,38 @@ display:inline-block;
 	color: #1e384b;
 }
 
+.login-sns {
+	text-align: center;
+	margin: 40px;
+	border-top: 1px solid #eeeeee;
+}
+
+.login-sns p{
+	margin: 20px auto;
+}
+
+.login-sns li {
+	display: inline-block;
+}
+
+.login-sns li>a{
+    width: 44px;
+    height: 44px;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 44px;
+    font-size: 20px;
+    background: #49be38;
+}
+
+.login-sns .wechat {
+	margin-top: 8px;
+	display: inline-block;
+	width: 30px;
+    height: 30px;
+	background: url(../images/sns/wechat.png) no-repeat;
+}
+
 /*找回密码*/
 .user_content .f_list .check_code.r0{
 	right:0;

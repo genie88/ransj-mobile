@@ -45,11 +45,21 @@
             </button>
         </div>
     </form>
+
+    <div class="login-sns" v-if="isWexin">
+      <p>您还可以通过以下方式免注册直接登录</p>
+      <ul>
+        <li class="wechat">
+          <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2066d62ba5f50ec&redirect_uri=http%3A%2F%2Fm.ransj.com&response_type=code&scope=snsapi_base#wechat_redirect" title="微信登录"><i class="wechat"></i></a>
+        </li>
+      </ul>
+    </div>
 </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
+    import wx from '../../../../../utils/wx'
     export default {
         name: 'Register',
         data () {
@@ -63,6 +73,9 @@
             }
         },
         computed: {
+            isWexin: function(){
+                return wx.getUA().isWeixin;
+            }, 
             ...mapGetters(['registerErrors'])
         },
         methods: {
@@ -91,23 +104,6 @@
                     })
                 }
             }
-            // register(){
-            //     $.ajax({
-            //         url: 'http://ransj.com/user/register',
-            //         type: 'POST',
-            //         data: {
-            //             username: this.$data.username,
-            //             mobile: this.$data.username,
-            //             email: this.$data.username,
-            //             password: this.$data.password,
-            //             password2: this.$data.password,
-            //             clause: 'on' //是否同意服务条款
-            //         },
-            //         success: function(json){
-            //             console.log(json);
-            //         }
-            //     })
-            // }
         },
         route: {
             data ({to}) {

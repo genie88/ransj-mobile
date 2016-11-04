@@ -40,11 +40,21 @@
             <a href="forgetpassword.jsp" class="login_tips">忘记密码</a>
         </div>
     </form>
+
+    <div class="login-sns" v-if="isWexin">
+      <p>您还可以通过以下方式直接登录</p>
+      <ul>
+        <li class="wechat">
+          <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2066d62ba5f50ec&redirect_uri=http%3A%2F%2Fm.ransj.com&response_type=code&scope=snsapi_base#wechat_redirect" title="微信登录"><i class="wechat"></i></a>
+        </li>
+      </ul>
+    </div>
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import wx from '../../../../../utils/wx'
 export default {
     name: 'Login',
     data () {
@@ -56,6 +66,9 @@ export default {
         }
     },
     computed: {
+        isWexin: function(){
+            return wx.getUA().isWeixin;
+        }, 
         ...mapGetters(['errors'])
     },
     methods: {
