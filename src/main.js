@@ -43,6 +43,10 @@ router.alias(alias)
 //全局钩子函数
 let authChecked = false;
 router.beforeEach(transition => {
+	if(!transition.to.matched) {
+		router.go('/');
+		return;
+	}
 	//Util.isWexin() && !authChecked
 	let code = paramUtil.get('code') || '';
 	if(code && !authChecked) {
@@ -76,8 +80,8 @@ router.beforeEach(transition => {
 
 router.afterEach(transition => {
 	window.scrollTo(0, 0);
-	// document.title = '然生记';
 	wx.setTitle('然生记');
+	wx.statPV(transition.to.path);
 })
 
 router.start(App, '#app')

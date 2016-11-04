@@ -20,5 +20,13 @@ export default {
             }, 0);
         });
         document.body.appendChild(iframe);
+    },
+
+    /**
+     * @desc 百度统计pv上报
+     * @param title
+     */
+    statPV(url) {
+        _hmt.push(['_trackPageview', url]);
     }
 }
