@@ -8,6 +8,7 @@ import { routes, alias }  from './routes'
 import a from './utils/filter'
 import paramUtil from './utils/paramUtil'
 import Cookie from './utils/cookie'
+import wx from './utils/wx'
 
 
 promise.polyfill();
@@ -74,7 +75,9 @@ router.beforeEach(transition => {
 })
 
 router.afterEach(transition => {
-	window.scrollTo(0, 0)
+	window.scrollTo(0, 0);
+	// document.title = '然生记';
+	wx.setTitle('然生记');
 })
 
 router.start(App, '#app')

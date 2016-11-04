@@ -28,6 +28,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import vTransparentNav from '../../../components/TransparentNav'
+import wx from '../../../utils/wx'
 
 export default {
   data () {
@@ -41,6 +42,12 @@ export default {
   },
   methods: {
     ...mapActions(['getTagDetail'])
+  },
+  watch: {
+    'tagDetail': function(newVal, oldVal){
+      let title = '做个选择 ' + newVal.name + ' - 然生记';
+      wx.setTitle(title);
+    }
   },
   route: {
       data ({to}) {

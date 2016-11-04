@@ -68,6 +68,7 @@ import vProductCard from '../../../components/ProductCard'
 import vProductDetail from '../../../components/ProductDetail'
 import vGoodSlider from '../../../components/GoodSlider'
 import vLoading from '../../../components/Loading'
+import wx from '../../../utils/wx'
 
 export default {
   name: 'ProductDetail',
@@ -91,6 +92,12 @@ export default {
     },
     ...mapActions(['initCheckComment', 'getDetail', 'getComments', 'comment', 'getFarmerGoods', 'addToCart', 'addProductViewHistory', 'showToast'])
   },
+  watch: {
+    'productDetail': function(newVal, oldVal){
+      let title = newVal.title + ' - 然生记';
+      wx.setTitle(title);
+    }
+  },
   route: {
       data ({to}) {
         if(isNaN(to.params.id)){
@@ -105,7 +112,6 @@ export default {
           })
           this.getComments(this.$data.id);
           this.$data.loadingAsyncData = false;
-          
         }
       }
   },

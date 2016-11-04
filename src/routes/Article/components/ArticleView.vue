@@ -8,6 +8,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import vTransparentNav from '../../../components/TransparentNav'
 import vArticleDetail from '../../../components/ArticleDetail'
+import wx from '../../../utils/wx'
 
 export default {
   data () {
@@ -21,6 +22,12 @@ export default {
   },
   methods: {
     ...mapActions(['getArticleDetail', 'getArticleComments'])
+  },
+  watch: {
+    'articleDetail': function(newVal, oldVal){
+      let title = newVal.title + ' - 然生记';
+      wx.setTitle(title);
+    }
   },
   route: {
       data ({to}) {
