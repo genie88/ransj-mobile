@@ -27,7 +27,8 @@
 
   <!-- 联系方式 -->
   <div class="info-box">
-    <p>服务热线：18073181682</p>
+    <p>服务热线：0731-85120849 </p>
+    <p>商务合作：biz@ransj.com </p>
     <p>周一至周日 8:00-21:00</p>
   </div>
   <div class="height45"></div>
