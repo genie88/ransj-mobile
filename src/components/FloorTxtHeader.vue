@@ -5,7 +5,7 @@
                 <div class="floor-head">
                     <div class=" border-t bold align-c">
                         <span class="dot"></span>
-                        &nbsp;热销排行&nbsp;
+                        &nbsp;{{title}}&nbsp;
                         <span class="dot"></span>
                     </div>
                 </div>
@@ -17,6 +17,7 @@
 <script>    
     export default {
         name: 'v-floor-txt-header',
+        props: ['title', 'link'],
         data(){
             return {
             }

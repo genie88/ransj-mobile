@@ -1,6 +1,7 @@
 <template>
-  <v-header :title="'所有分类'"></v-header>
-  <v-catagory :cates="cates.data"></v-catagory>
+  <v-header :title="'首页'"></v-header>
+  <div style="height:45px;"></div>
+  <!-- <v-catagory :cates="cates.data"></v-catagory> -->
   <v-banner></v-banner>
   <v-ad-slider :list="hotArticles.data"></v-ad-slider>
 
@@ -11,16 +12,21 @@
   <v-home-good-list :list="hotProducts.data" v-on:addToCart="addToCartClick"></v-home-good-list> -->
 
   <!-- 四时蔬菜 -->
-  <v-floor-image-header  :link="''"
+  <!-- <v-floor-image-header  :link="''"
     :image="'/images/headers/vege.jpg'">  
   </v-floor-image-header>
-  <v-home-good-list :list="productsByCates.cate109" v-on:addToCart="addToCartClick"></v-home-good-list>
+  <v-home-good-list :list="productsByCates.cate109" v-on:addToCart="addToCartClick"></v-home-good-list> -->
   
 
   <!-- 肉禽蛋类 -->
   <v-floor-image-header  :link="''"
     :image="'/images/headers/meat.jpg'">  
   </v-floor-image-header>
+
+<!--   <v-floor-txt-header  :link="''"
+    :title="'好物主打'">  
+  </v-floor-txt-header> -->
+
   <v-home-good-list :list="productsByCates.cate110" v-on:addToCart="addToCartClick"></v-home-good-list>
 
   
