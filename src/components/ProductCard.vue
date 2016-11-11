@@ -32,8 +32,8 @@
     <div class="pro_tag">
       <div class="pro_tag_list" id="wrapper" style="overflow: hidden;">
         <ul class="scrolls" style="width: 368px; transform-origin: 0px 0px 0px; position: absolute; top: 0px; left: 0px;">
-            <li v-if="info.ca !== undefined">
-                <a href="http://www.yimishiji.com/public/files/detection_report/a907948c6db509e82731749c191bed94.pdf">
+            <li v-if="info.ca && info.report">
+                <a href="{{info.report}}">
                 <img :src="'/tags/badge_'+ info.ca +'.png'">
                 </a>
             </li>

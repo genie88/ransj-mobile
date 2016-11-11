@@ -6,7 +6,7 @@
             <p>
                 <span class="comment_point_pic">
                 <img src="../static/img/touxiang.png"></span>
-                <span class="f13">{{comment.username}}</span>
+                <span class="f13">{{comment.is_admin ?  '匿名': comment.username}}</span>
                 <span class="order_time fr c_aaa f10">
                     {{comment.update_time | formatTime}}
                 </span>

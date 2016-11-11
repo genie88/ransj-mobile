@@ -14,8 +14,7 @@
             <a @click.prevent="switchTab()">商品详情</a>
           </li>
           <li :class="showComment? 'on': ''">
-            <a @click.prevent="switchTab()">吃货评论
-              <!-- <span class="s_num">4</span> -->
+            <a @click.prevent="switchTab()">吃货评论<span class="s_num">{{productComments.data.length}}</span>
             </a>
           </li>
         </ul>
@@ -37,12 +36,12 @@
         </div>
       </div>
       <div class="pro_tab_con pb40" v-if="showComment"> 
-        <template v-if="productComments && productComments.length">
+        <template v-if="productComments && productComments.data.length">
           <div class="pro_comment mt20" id="tags"></div>
           <v-comment-list :comments="productComments"></v-comment-list>
         </template>
 
-        <template v-if="!productComments || !productComments.length">
+        <template v-if="!productComments || !productComments.data.length">
           <!-- 没有评论过 -->
           <div class="no_comments wd90 m0" style="min-height: 600px;">
               <img src="/img/mycard/comment.png" style="margin: 3rem auto;">

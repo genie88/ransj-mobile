@@ -1,7 +1,22 @@
 <template>
+    <!-- 头部推广 --> 
+<!--     <div class="top_tuangou" style="display: block; height: 48px;">
+        <img class="top_tuangou_img1" src="http://m.yimishiji.com/shop_show_new/img/tuangou/01.png">
+        <a class="top_tuangou_img2" href="http://t.cn/RVDgwCL">
+            <img src="http://m.yimishiji.com/shop_show_new/img/tuangou/02.png">
+        </a>
+        <img class="top_tuangou_img3" src="http://m.yimishiji.com/shop_show_new/img/tuangou/03.png">
+    </div> -->
+
+    
 	<router-view></router-view>
 	<slot></slot>
 	<v-footer :menus="footerMenus" :carts="cartItems"></v-footer>
+
+    <!--  闪图广告 -->
+    <!-- <div class="tuangouTK" style="height: 100px;display: block;"><div class="tuangouTK_opcity"></div><img class="top_tuangou_img4" src="http://m.yimishiji.com/shop_show_new/img/tuangou/04.jpg"><a class="top_tuangou_img5" href="http://t.cn/RVDg76v"><img src="http://m.yimishiji.com/shop_show_new/img/tuangou/05.png"></a><img class="top_tuangou_img6" src="http://m.yimishiji.com/shop_show_new/img/tuangou/06.png"></div>  -->
+
+    
 
     <!-- toast tips -->
     <div class="m-global-tips-box m-ani-in" v-if="globalTips">
